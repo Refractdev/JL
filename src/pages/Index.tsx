@@ -1,16 +1,43 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import { useEffect } from "react";
+import Header from "@/components/site/Header";
+import Hero from "@/components/site/Hero";
+import About from "@/components/site/About";
+import Services from "@/components/site/Services";
+import BeforeAfter from "@/components/site/BeforeAfter";
+import Gallery from "@/components/site/Gallery";
+import Contact from "@/components/site/Contact";
+import Footer from "@/components/site/Footer";
+import FloatingWhatsApp from "@/components/site/FloatingWhatsApp";
+import { useReveal } from "@/hooks/useReveal";
 
-// IMPORTANT: Fully REPLACE this with your own code
-const PlaceholderIndex = () => {
-  // PLACEHOLDER: Replace this entire return statement with the user's app.
-  // The inline background color is intentionally not part of the design system.
+const Index = () => {
+  useReveal();
+
+  useEffect(() => {
+    document.title = "JL e Extensões — Extensões de Cabelo e Beleza | Vila Real";
+    const desc = "Estúdio premium em Vila Real especialista em extensões de cabelo, cabeleireiro, maquilhagem, cílios, unhas e depilação. Marca pelo WhatsApp.";
+    let meta = document.querySelector('meta[name="description"]');
+    if (!meta) {
+      meta = document.createElement("meta");
+      meta.setAttribute("name", "description");
+      document.head.appendChild(meta);
+    }
+    meta.setAttribute("content", desc);
+  }, []);
+
   return (
-    <div className="flex min-h-screen items-center justify-center" style={{ backgroundColor: '#fcfbf8' }}>
-      <img data-lovable-blank-page-placeholder="REMOVE_THIS" src="/placeholder.svg" alt="Your app will live here!" />
-    </div>
+    <main className="min-h-screen bg-background">
+      <Header />
+      <Hero />
+      <About />
+      <Services />
+      <BeforeAfter />
+      <Gallery />
+      <Contact />
+      <Footer />
+      <FloatingWhatsApp />
+    </main>
   );
 };
-
-const Index = PlaceholderIndex;
 
 export default Index;

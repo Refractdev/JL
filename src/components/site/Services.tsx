@@ -1,18 +1,13 @@
 import { whatsappLink } from "@/lib/whatsapp";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Scissors, Sparkles, Eye, Hand, Eraser } from "lucide-react";
 import ext1 from "@/assets/extension-process-02.jpg";
 import ext2 from "@/assets/materials-01.jpg";
 import ext3 from "@/assets/hair-03.jpg";
-import cab from "@/assets/hair-05.jpg";
-import maq from "@/assets/updo-01.jpg";
-import cilios from "@/assets/hair-08.jpg";
-import unhas from "@/assets/hair-07.jpg";
-import dep from "@/assets/hair-06.jpg";
 
 type Service = {
   title: string;
   description: string;
-  image: string;
+  icon: React.ElementType;
   message: string;
 };
 
@@ -20,31 +15,31 @@ const others: Service[] = [
   {
     title: "Cabeleireiro",
     description: "Cortes, cor, mechas, hidratação e tratamentos personalizados.",
-    image: cab,
+    icon: Scissors,
     message: "Olá! Gostaria de marcar um serviço de cabeleireiro.",
   },
   {
     title: "Maquilhagem",
     description: "Maquilhagem para casamentos, eventos e ocasiões especiais.",
-    image: maq,
+    icon: Sparkles,
     message: "Olá! Gostaria de marcar maquilhagem.",
   },
   {
     title: "Cílios",
     description: "Extensões de cílios fio a fio, volume russo e lifting.",
-    image: cilios,
+    icon: Eye,
     message: "Olá! Gostaria de marcar um serviço de cílios.",
   },
   {
     title: "Unhas",
     description: "Manicure, pedicure, gel e nail art com acabamento impecável.",
-    image: unhas,
+    icon: Hand,
     message: "Olá! Gostaria de marcar um serviço de unhas.",
   },
   {
     title: "Depilação",
     description: "Depilação com cera quente e fria, suave e duradoura.",
-    image: dep,
+    icon: Eraser,
     message: "Olá! Gostaria de marcar depilação.",
   },
 ];
@@ -115,13 +110,8 @@ export default function Services() {
               rel="noopener noreferrer"
               className="reveal group bg-card border border-border rounded-3xl overflow-hidden shadow-soft hover:shadow-elegant transition-all hover:-translate-y-1"
             >
-              <div className="relative h-56 overflow-hidden">
-                <img
-                  src={s.image}
-                  alt={s.title}
-                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-                  loading="lazy"
-                />
+              <div className="relative h-32 sm:h-48 flex items-center justify-center bg-muted/30 group-hover:bg-muted/50 transition-colors">
+                <s.icon className="w-10 h-10 sm:w-12 sm:h-12 text-gold/40 group-hover:text-gold/60 transition-colors duration-500" />
               </div>
               <div className="p-6">
                 <h3 className="font-serif text-xl text-foreground mb-2">{s.title}</h3>

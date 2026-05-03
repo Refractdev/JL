@@ -1,4 +1,5 @@
 import { MessageCircle, ArrowDown } from "lucide-react";
+import { Link } from "react-router-dom";
 import { whatsappLink } from "@/lib/whatsapp";
 import video from "@/assets/video-01.mp4";
 import poster from "@/assets/hair-04.jpg";
@@ -40,23 +41,23 @@ export default function Hero() {
               <MessageCircle className="w-5 h-5" />
               Marcar no WhatsApp
             </a>
-            <a
-              href="#servicos"
+            <Link
+              to="/#servicos"
               className="inline-flex items-center justify-center gap-2 bg-white/10 backdrop-blur-md border border-white/40 text-white px-8 py-4 rounded-full text-base font-medium hover:bg-white/20 transition-colors"
             >
               Ver serviços
-            </a>
+            </Link>
           </div>
         </div>
       </div>
 
-      <a
-        href="#sobre"
+      <Link
+        to="/#sobre"
         className="hidden md:flex absolute bottom-8 left-1/2 -translate-x-1/2 z-10 flex-col items-center gap-2 text-white/80 hover:text-white transition-colors"
       >
         <span className="text-[10px] tracking-[0.3em] uppercase">Descobre mais</span>
         <ArrowDown className="w-4 h-4 animate-bounce" />
-      </a>
+      </Link>
     </section>
   );
 }

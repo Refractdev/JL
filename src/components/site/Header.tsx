@@ -1,4 +1,5 @@
 import { useEffect, useState, useRef, useCallback } from "react";
+import { Link } from "react-router-dom";
 import { Menu, X, MessageCircle } from "lucide-react";
 import { whatsappLink } from "@/lib/whatsapp";
 import { cn } from "@/lib/utils";
@@ -134,24 +135,24 @@ export default function Header() {
       aria-label="Navegação principal"
     >
       <div className="container-tight flex items-center justify-between h-20">
-        <a href="/" className="flex flex-col leading-tight">
+        <Link to="/" className="flex flex-col leading-tight">
           <span className="font-serif text-xl md:text-2xl text-foreground">
             JL <span className="text-gold">&</span> Extensões
           </span>
           <span className="text-[10px] uppercase tracking-[0.25em] text-muted-foreground">
             Estúdio de Beleza
           </span>
-        </a>
+        </Link>
 
         <nav className="hidden lg:flex items-center gap-9">
           {links.map((l) => (
-            <a
+            <Link
               key={l.href}
-              href={l.href}
+              to={l.href}
               className="text-sm font-medium text-foreground/80 hover:text-gold transition-colors"
             >
               {l.label}
-            </a>
+            </Link>
           ))}
         </nav>
 
@@ -191,14 +192,14 @@ export default function Header() {
       >
         <div className="container-tight py-6 flex flex-col gap-2">
           {links.map((l) => (
-            <a
+            <Link
               key={l.href}
-              href={l.href}
+              to={l.href}
               onClick={handleLinkClick}
               className="text-base font-medium text-foreground/80 hover:text-gold hover:bg-muted/50 py-3 px-4 rounded-xl transition-all focus:outline-none focus:ring-2 focus:ring-ring"
             >
               {l.label}
-            </a>
+            </Link>
           ))}
           <a
             href={whatsappLink("Olá! Gostaria de marcar um serviço.")}

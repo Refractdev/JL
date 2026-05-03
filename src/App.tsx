@@ -8,6 +8,7 @@ import ExtensoesCabelo from "./pages/ExtensoesCabelo.tsx";
 import Maquilhagem from "./pages/Maquilhagem.tsx";
 import Unhas from "./pages/Unhas.tsx";
 import NotFound from "./pages/NotFound.tsx";
+import ScrollToTop from "@/components/site/ScrollToTop";
 
 const queryClient = new QueryClient();
 
@@ -17,6 +18,7 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
+        <ScrollToTop />
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/extensoes-cabelo-vila-real" element={<ExtensoesCabelo />} />

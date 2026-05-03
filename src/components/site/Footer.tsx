@@ -1,4 +1,5 @@
 import { MapPin, Phone } from "lucide-react";
+import { Link } from "react-router-dom";
 import { WHATSAPP_DISPLAY } from "@/lib/whatsapp";
 
 export default function Footer() {
@@ -44,11 +45,11 @@ export default function Footer() {
             Navegação
           </p>
           <ul className="space-y-2 text-sm">
-            <li><a href="#inicio" className="hover:text-background transition-colors">Início</a></li>
-            <li><a href="#sobre" className="hover:text-background transition-colors">Sobre</a></li>
-            <li><a href="#servicos" className="hover:text-background transition-colors">Serviços</a></li>
-            <li><a href="#galeria" className="hover:text-background transition-colors">Galeria</a></li>
-            <li><a href="#contacto" className="hover:text-background transition-colors">Contacto</a></li>
+            <li><Link to="/" className="hover:text-background transition-colors">Início</Link></li>
+            <li><Link to="/#sobre" className="hover:text-background transition-colors">Sobre</Link></li>
+            <li><Link to="/extensoes-cabelo-vila-real" className="hover:text-background transition-colors">Extensões</Link></li>
+            <li><Link to="/maquilhagem-vila-real" className="hover:text-background transition-colors">Maquilhagem</Link></li>
+            <li><Link to="/unhas-vila-real" className="hover:text-background transition-colors">Unhas</Link></li>
           </ul>
         </div>
       </div>

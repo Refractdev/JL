@@ -7,7 +7,6 @@ import { useReveal } from "@/hooks/useReveal";
 import { MessageCircle, CheckCircle } from "lucide-react";
 import { whatsappLink } from "@/lib/whatsapp";
 import makeup1 from "@/assets/gallery-makeup-01.jpg";
-import updo1 from "@/assets/updo-01.jpg";
 
 export default function Maquilhagem() {
   useReveal();

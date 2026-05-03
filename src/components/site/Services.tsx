@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { whatsappLink } from "@/lib/whatsapp";
 import { ArrowRight, Scissors, Sparkles, Eye, Hand, Eraser } from "lucide-react";
 import ext1 from "@/assets/extension-process-02.jpg";
@@ -81,12 +82,12 @@ export default function Services() {
                 Cabelo natural premium, em diversas cores e comprimentos. Aplicação profissional
                 que respeita o teu cabelo e garante um resultado deslumbrante e duradouro.
               </p>
-              <a
-                href="/extensoes-cabelo-vila-real"
+              <Link
+                to="/extensoes-cabelo-vila-real"
                 className="inline-flex items-center gap-2 bg-gradient-gold text-primary-foreground px-6 py-3 rounded-full text-sm font-medium w-fit hover:scale-[1.03] transition-transform"
               >
                 Saber mais <ArrowRight className="w-4 h-4" />
-              </a>
+              </Link>
             </div>
           </div>
           <div className="lg:col-span-2 grid grid-rows-2 gap-6">
@@ -101,26 +102,34 @@ export default function Services() {
 
         {/* Other services */}
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {others.map((s) => (
-            <a
-              key={s.title}
-              href={s.link || whatsappLink(s.message!)}
-              target={s.link ? undefined : "_blank"}
-              rel={s.link ? undefined : "noopener noreferrer"}
-              className="reveal group bg-card border border-border rounded-3xl overflow-hidden shadow-soft hover:shadow-elegant transition-all hover:-translate-y-1"
-            >
-              <div className="relative h-32 sm:h-48 flex items-center justify-center bg-muted/30 group-hover:bg-muted/50 transition-colors">
-                <s.icon className="w-10 h-10 sm:w-12 sm:h-12 text-gold/40 group-hover:text-gold/60 transition-colors duration-500" />
-              </div>
-              <div className="p-6">
-                <h3 className="font-serif text-xl text-foreground mb-2">{s.title}</h3>
-                <p className="text-sm text-muted-foreground leading-relaxed mb-4">{s.description}</p>
-                <span className="inline-flex items-center gap-1.5 text-sm text-gold font-medium">
-                  Marcar <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                </span>
-              </div>
-            </a>
-          ))}
+          {others.map((s) => {
+            const isInternal = !!s.link;
+            const linkProps = isInternal 
+              ? { to: s.link! } 
+              : { href: whatsappLink(s.message!), target: "_blank", rel: "noopener noreferrer" };
+            
+            // We cast to any here because Tag is dynamic
+            const Tag: any = isInternal ? Link : "a";
+
+            return (
+              <Tag
+                key={s.title}
+                {...linkProps}
+                className="reveal group bg-card border border-border rounded-3xl overflow-hidden shadow-soft hover:shadow-elegant transition-all hover:-translate-y-1"
+              >
+                <div className="relative h-32 sm:h-48 flex items-center justify-center bg-muted/30 group-hover:bg-muted/50 transition-colors">
+                  <s.icon className="w-10 h-10 sm:w-12 sm:h-12 text-gold/40 group-hover:text-gold/60 transition-colors duration-500" />
+                </div>
+                <div className="p-6">
+                  <h3 className="font-serif text-xl text-foreground mb-2">{s.title}</h3>
+                  <p className="text-sm text-muted-foreground leading-relaxed mb-4">{s.description}</p>
+                  <span className="inline-flex items-center gap-1.5 text-sm text-gold font-medium">
+                    Marcar <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                  </span>
+                </div>
+              </Tag>
+            );
+          })}
         </div>
       </div>
     </section>

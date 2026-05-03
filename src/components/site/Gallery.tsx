@@ -54,7 +54,6 @@ const items: Item[] = [
   { type: "image", src: mat5, alt: "Extensão preta longa" },
 ];
 
-// LazyImage component with intersection observer
 function LazyImage({
   src,
   alt,
@@ -70,32 +69,19 @@ function LazyImage({
   const imgRef = useRef<HTMLImageElement>(null);
 
   useEffect(() => {
-    if (!imgRef.current || loading === "eager") return;
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            const img = entry.target as HTMLImageElement;
-            img.src = img.dataset.src || src;
-            observer.unobserve(img);
-          }
-        });
-      },
-      { rootMargin: "50px" }
-    );
-
-    observer.observe(imgRef.current);
-    return () => observer.disconnect();
-  }, [src, loading]);
+    if (imgRef.current?.complete) {
+      setIsLoaded(true);
+    }
+  }, [src]);
 
   return (
     <img
       ref={imgRef}
-      src={loading === "eager" ? src : undefined}
-      data-src={loading === "lazy" ? src : undefined}
+      src={src}
       alt={alt}
-      className={`${className} ${isLoaded ? "opacity-100" : "opacity-0"} transition-opacity duration-300`}
+      className={`${className} ${
+        isLoaded ? "opacity-100" : "opacity-0"
+      } transition-opacity duration-500 will-change-[opacity]`}
       loading={loading}
       onLoad={() => setIsLoaded(true)}
     />
@@ -207,7 +193,7 @@ export default function Gallery() {
             <button
               key={idx}
               onClick={() => setOpen(idx)}
-              className="reveal mb-4 block w-full break-inside-avoid relative group rounded-2xl overflow-hidden shadow-soft hover:shadow-elegant transition-all focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
+              className="reveal mb-4 block w-full break-inside-avoid relative group rounded-2xl overflow-hidden shadow-soft hover:shadow-elegant transition-shadow duration-300 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 transform-gpu will-change-transform"
               aria-label={it.type === "video" ? `Ver vídeo: ${it.alt}` : `Ver imagem: ${it.alt}`}
               role="listitem"
             >
@@ -215,7 +201,7 @@ export default function Gallery() {
                 <LazyImage
                   src={it.src}
                   alt={it.alt}
-                  className="w-full h-auto object-cover group-hover:scale-105 transition-transform duration-700"
+                  className="w-full h-auto object-cover group-hover:scale-105 transition-transform duration-700 transform-gpu will-change-transform"
                   loading={idx < 8 ? "eager" : "lazy"}
                 />
               ) : (

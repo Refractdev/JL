@@ -8,7 +8,8 @@ type Service = {
   title: string;
   description: string;
   icon: React.ElementType;
-  message: string;
+  message?: string;
+  link?: string;
 };
 
 const others: Service[] = [
@@ -22,7 +23,7 @@ const others: Service[] = [
     title: "Maquilhagem",
     description: "Maquilhagem para casamentos, eventos e ocasiões especiais.",
     icon: Sparkles,
-    message: "Olá! Gostaria de marcar maquilhagem.",
+    link: "/maquilhagem-vila-real",
   },
   {
     title: "Cílios",
@@ -34,7 +35,7 @@ const others: Service[] = [
     title: "Unhas",
     description: "Manicure, pedicure, gel e nail art com acabamento impecável.",
     icon: Hand,
-    message: "Olá! Gostaria de marcar um serviço de unhas.",
+    link: "/unhas-vila-real",
   },
   {
     title: "Depilação",
@@ -81,9 +82,7 @@ export default function Services() {
                 que respeita o teu cabelo e garante um resultado deslumbrante e duradouro.
               </p>
               <a
-                href={whatsappLink("Olá! Tenho interesse em colocar extensões de cabelo. Podem dar mais informações?")}
-                target="_blank"
-                rel="noopener noreferrer"
+                href="/extensoes-cabelo-vila-real"
                 className="inline-flex items-center gap-2 bg-gradient-gold text-primary-foreground px-6 py-3 rounded-full text-sm font-medium w-fit hover:scale-[1.03] transition-transform"
               >
                 Saber mais <ArrowRight className="w-4 h-4" />
@@ -105,9 +104,9 @@ export default function Services() {
           {others.map((s) => (
             <a
               key={s.title}
-              href={whatsappLink(s.message)}
-              target="_blank"
-              rel="noopener noreferrer"
+              href={s.link || whatsappLink(s.message!)}
+              target={s.link ? undefined : "_blank"}
+              rel={s.link ? undefined : "noopener noreferrer"}
               className="reveal group bg-card border border-border rounded-3xl overflow-hidden shadow-soft hover:shadow-elegant transition-all hover:-translate-y-1"
             >
               <div className="relative h-32 sm:h-48 flex items-center justify-center bg-muted/30 group-hover:bg-muted/50 transition-colors">

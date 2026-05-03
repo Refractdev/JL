@@ -4,11 +4,11 @@ import { whatsappLink } from "@/lib/whatsapp";
 import { cn } from "@/lib/utils";
 
 const links = [
-  { href: "#inicio", label: "Início" },
-  { href: "#sobre", label: "Sobre" },
-  { href: "#servicos", label: "Serviços" },
-  { href: "#galeria", label: "Galeria" },
-  { href: "#contacto", label: "Contacto" },
+  { href: "/", label: "Início" },
+  { href: "/extensoes-cabelo-vila-real", label: "Extensões" },
+  { href: "/maquilhagem-vila-real", label: "Maquilhagem" },
+  { href: "/unhas-vila-real", label: "Unhas" },
+  { href: "/#contacto", label: "Contacto" },
 ];
 
 export default function Header() {
@@ -134,7 +134,7 @@ export default function Header() {
       aria-label="Navegação principal"
     >
       <div className="container-tight flex items-center justify-between h-20">
-        <a href="#inicio" className="flex flex-col leading-tight">
+        <a href="/" className="flex flex-col leading-tight">
           <span className="font-serif text-xl md:text-2xl text-foreground">
             JL <span className="text-gold">&</span> Extensões
           </span>

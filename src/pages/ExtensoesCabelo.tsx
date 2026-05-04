@@ -28,9 +28,19 @@ export default function ExtensoesCabelo() {
     };
 
     setMeta('meta[name="description"]', "content", desc, "description");
+    setMeta('meta[name="keywords"]', "content", "extensões de cabelo vila real, colocar extensões vila real, cabelo natural vila real, extensões de nó italiano, extensões de queratina", "keywords");
     setMeta('meta[property="og:title"]', "content", "Extensões de Cabelo em Vila Real | JL e Extensões", "og:title");
     setMeta('meta[property="og:description"]', "content", desc, "og:description");
-    setMeta('meta[property="og:url"]', "content", "https://jleextensoes.pt/extensoes-cabelo-vila-real", "og:url");
+    setMeta('meta[property="og:url"]', "content", "https://xn--jlextenses-9bb.com/extensoes-cabelo-vila-real", "og:url");
+
+    let canonical = document.querySelector('link[rel="canonical"]') as HTMLLinkElement | null;
+    if (!canonical) {
+      canonical = document.createElement("link") as HTMLLinkElement;
+      canonical.setAttribute("rel", "canonical");
+      document.head.appendChild(canonical);
+    }
+    canonical.setAttribute("href", "https://xn--jlextenses-9bb.com/extensoes-cabelo-vila-real");
+
   }, []);
 
   return (

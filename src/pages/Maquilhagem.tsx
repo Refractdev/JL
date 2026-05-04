@@ -26,9 +26,19 @@ export default function Maquilhagem() {
     };
 
     setMeta('meta[name="description"]', "content", desc, "description");
+    setMeta('meta[name="keywords"]', "content", "maquilhagem vila real, maquilhadora vila real, maquilhagem noivas vila real, makeup artist vila real", "keywords");
     setMeta('meta[property="og:title"]', "content", "Maquilhagem Profissional em Vila Real | JL e Extensões", "og:title");
     setMeta('meta[property="og:description"]', "content", desc, "og:description");
-    setMeta('meta[property="og:url"]', "content", "https://jleextensoes.pt/maquilhagem-vila-real", "og:url");
+    setMeta('meta[property="og:url"]', "content", "https://xn--jlextenses-9bb.com/maquilhagem-vila-real", "og:url");
+
+    let canonical = document.querySelector('link[rel="canonical"]') as HTMLLinkElement | null;
+    if (!canonical) {
+      canonical = document.createElement("link") as HTMLLinkElement;
+      canonical.setAttribute("rel", "canonical");
+      document.head.appendChild(canonical);
+    }
+    canonical.setAttribute("href", "https://xn--jlextenses-9bb.com/maquilhagem-vila-real");
+
   }, []);
 
   return (

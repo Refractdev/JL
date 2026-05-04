@@ -16,7 +16,7 @@ const structuredData = {
   "@type": "BeautySalon",
   name: "JL e Extensões",
   description: "Estúdio premium em Vila Real especialista em extensões de cabelo, cabeleireiro, maquilhagem, cílios, unhas e depilação.",
-  url: "https://jleextensoes.pt",
+  url: "https://xn--jlextenses-9bb.com",
   telephone: "+351935449306",
   address: {
     "@type": "PostalAddress",
@@ -39,7 +39,7 @@ const structuredData = {
       closes: "13:00",
     },
   ],
-  image: "https://jleextensoes.pt/og-image.jpg",
+  image: "https://xn--jlextenses-9bb.com/og-image.jpg",
   priceRange: "€€",
   sameAs: [
     "https://instagram.com/jleextensoes",
@@ -67,13 +67,14 @@ const Index = () => {
     };
 
     setMeta('meta[name="description"]', "content", desc, "description");
+    setMeta('meta[name="keywords"]', "content", "extensões de cabelo vila real, cabeleireiro vila real, maquilhagem vila real, unhas vila real", "keywords");
 
     // Open Graph
     setMeta('meta[property="og:title"]', "content", "JL e Extensões — Extensões de Cabelo e Beleza", "og:title");
     setMeta('meta[property="og:description"]', "content", desc, "og:description");
     setMeta('meta[property="og:type"]', "content", "website", "og:type");
-    setMeta('meta[property="og:url"]', "content", "https://jleextensoes.pt", "og:url");
-    setMeta('meta[property="og:image"]', "content", "https://jleextensoes.pt/og-image.jpg", "og:image");
+    setMeta('meta[property="og:url"]', "content", "https://xn--jlextenses-9bb.com", "og:url");
+    setMeta('meta[property="og:image"]', "content", "https://xn--jlextenses-9bb.com/og-image.jpg", "og:image");
     setMeta('meta[property="og:locale"]', "content", "pt_PT", "og:locale");
 
     // Twitter Card
@@ -88,7 +89,7 @@ const Index = () => {
       canonical.setAttribute("rel", "canonical");
       document.head.appendChild(canonical);
     }
-    canonical.setAttribute("href", "https://jleextensoes.pt/");
+    canonical.setAttribute("href", "https://xn--jlextenses-9bb.com/");
 
     // Structured Data
     let script = document.getElementById("structured-data") as HTMLScriptElement | null;

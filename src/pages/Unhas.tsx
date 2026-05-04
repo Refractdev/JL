@@ -26,9 +26,19 @@ export default function Unhas() {
     };
 
     setMeta('meta[name="description"]', "content", desc, "description");
-    setMeta('meta[property="og:title"]', "content", "Manicure e Unhas de Gel em Vila Real", "og:title");
+    setMeta('meta[name="keywords"]', "content", "unhas vila real, manicure vila real, unhas de gel vila real, nail art vila real", "keywords");
+    setMeta('meta[property="og:title"]', "content", "Unhas de Gel e Manicure em Vila Real | JL e Extensões", "og:title");
     setMeta('meta[property="og:description"]', "content", desc, "og:description");
-    setMeta('meta[property="og:url"]', "content", "https://jleextensoes.pt/unhas-vila-real", "og:url");
+    setMeta('meta[property="og:url"]', "content", "https://xn--jlextenses-9bb.com/unhas-vila-real", "og:url");
+
+    let canonical = document.querySelector('link[rel="canonical"]') as HTMLLinkElement | null;
+    if (!canonical) {
+      canonical = document.createElement("link") as HTMLLinkElement;
+      canonical.setAttribute("rel", "canonical");
+      document.head.appendChild(canonical);
+    }
+    canonical.setAttribute("href", "https://xn--jlextenses-9bb.com/unhas-vila-real");
+
   }, []);
 
   return (

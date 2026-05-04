@@ -20,15 +20,10 @@ const structuredData = {
   telephone: "+351935449306",
   address: {
     "@type": "PostalAddress",
-    streetAddress: "Rua de Santo António, Bloco A, 3º andar, porta CJ",
+    streetAddress: "Av. Gen. Alves Roçadas 15",
     addressLocality: "Vila Real",
-    postalCode: "5000-607",
+    postalCode: "5000-687",
     addressCountry: "PT",
-  },
-  geo: {
-    "@type": "GeoCoordinates",
-    latitude: "41.3004",
-    longitude: "-7.7458",
   },
   openingHoursSpecification: [
     {

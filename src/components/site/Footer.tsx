@@ -32,9 +32,8 @@ export default function Footer() {
             <li className="flex gap-3">
               <MapPin className="w-4 h-4 text-[hsl(var(--gold-light))] mt-0.5 shrink-0" />
               <span>
-                Rua de Santo António, Bloco A<br />
-                3º andar, porta CJ<br />
-                5000-607 Vila Real
+                Av. Gen. Alves Roçadas 15<br />
+                5000-687 Vila Real
               </span>
             </li>
           </ul>

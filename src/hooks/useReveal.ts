@@ -4,16 +4,7 @@ export function useReveal() {
   const observerRef = useRef<IntersectionObserver | null>(null);
 
   useEffect(() => {
-    // Use requestIdleCallback for non-critical work if available
-    const scheduleWork =
-      typeof window !== "undefined" && "requestIdleCallback" in window
-        ? window.requestIdleCallback
-        : (cb: () => void) => setTimeout(cb, 1);
-
     const initObserver = () => {
-      const els = document.querySelectorAll<HTMLElement>(".reveal");
-      if (els.length === 0) return;
-
       observerRef.current = new IntersectionObserver(
         (entries) => {
           entries.forEach((entry) => {
@@ -25,41 +16,58 @@ export function useReveal() {
         },
         {
           threshold: 0.1,
-          rootMargin: "0px 0px -60px 0px",
+          rootMargin: "0px 0px -50px 0px",
         }
       );
 
+      // Initial observation
+      const els = document.querySelectorAll(".reveal");
       els.forEach((el) => observerRef.current?.observe(el));
     };
 
-    const timeoutId = setTimeout(() => {
-      scheduleWork(initObserver);
-    }, 0);
+    initObserver();
+
+    // Watch for new .reveal elements added to the DOM
+    const mutationObserver = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        mutation.addedNodes.forEach((node) => {
+          if (node instanceof HTMLElement) {
+            if (node.classList.contains("reveal")) {
+              observerRef.current?.observe(node);
+            }
+            node.querySelectorAll(".reveal").forEach((el) => {
+              observerRef.current?.observe(el);
+            });
+          }
+        });
+      });
+    });
+
+    mutationObserver.observe(document.body, {
+      childList: true,
+      subtree: true,
+    });
 
     return () => {
-      clearTimeout(timeoutId);
       if (observerRef.current) {
         observerRef.current.disconnect();
-        observerRef.current = null;
       }
+      mutationObserver.disconnect();
     };
   }, []);
 }
 
-// Hook for single element reveal with custom options
 export function useRevealElement<T extends HTMLElement>() {
   const ref = useRef<T>(null);
-  const isVisible = useRef(false);
 
   useEffect(() => {
     const el = ref.current;
-    if (!el || isVisible.current) return;
+    if (!el) return;
 
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
           el.classList.add("is-visible");
-          isVisible.current = true;
           observer.unobserve(el);
         }
       },
@@ -72,3 +80,4 @@ export function useRevealElement<T extends HTMLElement>() {
 
   return ref;
 }
+

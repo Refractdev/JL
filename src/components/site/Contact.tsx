@@ -79,9 +79,8 @@ export default function Contact() {
                 <div>
                   <p className="text-xs uppercase tracking-widest text-muted-foreground mb-1">Endereço</p>
                   <p className="text-foreground leading-relaxed">
-                    Rua de Santo António, Bloco A<br />
-                    3º andar, porta CJ<br />
-                    5000-607 Vila Real, Portugal
+                    Av. Gen. Alves Roçadas 15<br />
+                    5000-687 Vila Real, Portugal
                   </p>
                 </div>
               </li>
@@ -100,7 +99,7 @@ export default function Contact() {
             <div className="mt-8 rounded-2xl overflow-hidden border border-border h-56">
               <iframe
                 title="Localização JL e Extensões"
-                src="https://www.google.com/maps?q=Rua+de+Santo+Ant%C3%B3nio+Vila+Real+5000-607&output=embed"
+                src="https://www.google.com/maps?q=Av.+Gen.+Alves+Ro%C3%A7adas+15,+5000-687+Vila+Real&output=embed"
                 className="w-full h-full"
                 loading="lazy"
               />

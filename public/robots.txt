@@ -13,4 +13,4 @@ Allow: /
 User-agent: *
 Allow: /
 
-Sitemap: https://xn--jlextenses-u5a.com/sitemap.xml
+Sitemap: https://xn--jlextenses-9bb.com/sitemap.xml

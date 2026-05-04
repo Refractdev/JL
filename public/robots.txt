@@ -13,4 +13,4 @@ Allow: /
 User-agent: *
 Allow: /
 
-Sitemap: https://jleextensoes.pt/sitemap.xml
+Sitemap: https://jlextensoes.com/sitemap.xml

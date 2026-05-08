@@ -1,4 +1,4 @@
-import { MapPin, Phone } from "lucide-react";
+import { MapPin, Phone, Mail } from "lucide-react";
 import { Link } from "react-router-dom";
 import { WHATSAPP_DISPLAY } from "@/lib/whatsapp";
 
@@ -27,6 +27,12 @@ export default function Footer() {
               <Phone className="w-4 h-4 text-[hsl(var(--gold-light))] mt-0.5 shrink-0" />
               <a href="tel:+351935449306" className="hover:text-background transition-colors">
                 {WHATSAPP_DISPLAY}
+              </a>
+            </li>
+            <li className="flex gap-3">
+              <Mail className="w-4 h-4 text-[hsl(var(--gold-light))] mt-0.5 shrink-0" />
+              <a href="mailto:Lopesjoicylopes46@gmail.com" className="hover:text-background transition-colors">
+                Lopesjoicylopes46@gmail.com
               </a>
             </li>
             <li className="flex gap-3">

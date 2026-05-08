@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { MapPin, Phone, User, MessageCircle, Send } from "lucide-react";
+import { MapPin, Phone, User, MessageCircle, Send, Mail } from "lucide-react";
 import { whatsappLink, WHATSAPP_DISPLAY } from "@/lib/whatsapp";
 import { toast } from "sonner";
 
@@ -69,6 +69,17 @@ export default function Contact() {
                   <p className="text-xs uppercase tracking-widest text-muted-foreground mb-1">Telefone / WhatsApp</p>
                   <a href="tel:+351935449306" className="text-foreground font-medium hover:text-gold transition-colors">
                     {WHATSAPP_DISPLAY}
+                  </a>
+                </div>
+              </li>
+              <li className="flex gap-4">
+                <div className="w-12 h-12 rounded-2xl bg-gradient-gold flex items-center justify-center shrink-0 shadow-gold">
+                  <Mail className="w-5 h-5 text-primary-foreground" />
+                </div>
+                <div>
+                  <p className="text-xs uppercase tracking-widest text-muted-foreground mb-1">Email</p>
+                  <a href="mailto:Lopesjoicylopes46@gmail.com" className="text-foreground font-medium hover:text-gold transition-colors">
+                    Lopesjoicylopes46@gmail.com
                   </a>
                 </div>
               </li>

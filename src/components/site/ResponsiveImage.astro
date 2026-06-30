@@ -1,0 +1,50 @@
+---
+interface Props {
+  name: string;
+  alt: string;
+  sizes?: string;
+  priority?: boolean;
+  thumb?: boolean;
+  fill?: boolean;
+  class?: string;
+}
+
+const {
+  name,
+  alt,
+  sizes = "(max-width: 640px) 100vw, 50vw",
+  priority = false,
+  thumb = false,
+  fill = false,
+  class: className = "",
+} = Astro.props;
+
+const jpgSrc = thumb ? `/images/${name}-400w.jpg` : `/images/${name}-800w.jpg`;
+const jpgSrcset = thumb
+  ? `/images/${name}-400w.jpg 400w`
+  : `/images/${name}-400w.jpg 400w, /images/${name}-800w.jpg 800w, /images/${name}-1200w.jpg 1200w`;
+const webpSrcset = thumb
+  ? `/images/${name}-400w.webp 400w`
+  : `/images/${name}-400w.webp 400w, /images/${name}-800w.webp 800w, /images/${name}-1200w.webp 1200w`;
+const imgWidth = thumb ? 400 : 800;
+const imgHeight = thumb ? 500 : 600;
+// LQIP background color matching dominant gold/champagne tones
+const lqipColor = thumb ? "#d4c4a8" : "#c4b49a";
+---
+
+<picture class:list={[{ "block h-full w-full": fill }]}>
+  <source type="image/webp" srcset={webpSrcset} sizes={sizes} />
+  <img
+    src={jpgSrc}
+    srcset={jpgSrcset}
+    sizes={sizes}
+    alt={alt}
+    class={className}
+    width={imgWidth}
+    height={imgHeight}
+    loading={priority ? "eager" : "lazy"}
+    decoding="async"
+    fetchpriority={priority ? "high" : "auto"}
+    style={!fill ? `background-color: ${lqipColor};` : `background-color: ${lqipColor}; position: absolute; inset: 0;`}
+  />
+</picture>

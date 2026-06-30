@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://xn--jlextenses-9bb.com/sitemap-index.xml

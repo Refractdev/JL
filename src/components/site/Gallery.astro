@@ -1,0 +1,225 @@
+---
+import SectionHeader from "@/components/site/SectionHeader.astro";
+import { galleryFilters, galleryItems, imageFull } from "@/lib/gallery-data";
+---
+
+<section id="galeria" class="section-padding section-defer overflow-hidden bg-background">
+  <div class="container-tight">
+    <SectionHeader
+      eyebrow="Galeria"
+      title="Trabalhos que falam por"
+      highlight="si"
+      description="Inspira-te com transformações reais feitas no nosso estúdio."
+      align="center"
+      class="mb-10 md:mb-12"
+    />
+
+    <div class="reveal flex flex-wrap items-center gap-2" role="toolbar" aria-label="Filtrar galeria">
+      {
+        galleryFilters.map((filter, i) => (
+          <button
+            type="button"
+            data-gallery-filter={filter}
+            aria-pressed={filter === "Todas" ? "true" : "false"}
+            class:list={[
+              "gallery-filter rounded-full border px-4 py-2.5 text-sm font-medium transition-all duration-200",
+              { "is-active": filter === "Todas" }
+            ]}
+          >
+            {filter === "Todas" ? "Tudo" : filter}
+          </button>
+        ))
+      }
+    </div>
+
+    <div
+      data-gallery-grid
+      class="mt-6 grid auto-rows-[120px] grid-cols-2 gap-2.5 sm:auto-rows-[180px] sm:gap-3 md:mt-8 md:grid-cols-3 md:auto-rows-[200px] xl:grid-cols-4"
+      role="list"
+      aria-label="Galeria de trabalhos"
+    >
+      {
+        galleryItems.map((item) => {
+          const full = item.type === "image" ? imageFull(item.name) : item.video;
+          return (
+            <button
+              type="button"
+              role="listitem"
+              data-gallery-item
+              data-type={item.type}
+              data-category={item.category}
+              data-alt={item.alt}
+              data-badge={item.badge}
+              data-full={full}
+              class={`gallery-item reveal group relative overflow-hidden rounded-xl border border-border/50 bg-card text-left shadow-card sm:rounded-2xl ${item.size}`}
+              aria-label={item.type === "video" ? `Ver vídeo: ${item.alt}` : `Ver imagem: ${item.alt}`}
+            >
+              {item.type === "image" ? (
+                <img
+                  src={`/images/${item.name}-400w.webp`}
+                  alt={item.alt}
+                  class="h-full w-full object-cover transition-transform duration-500 will-change-transform md:group-hover:scale-105"
+                  loading="lazy"
+                  decoding="async"
+                  width="400"
+                  height="300"
+                />
+              ) : (
+                <div class="relative h-full w-full">
+                  <img
+                    src={`/images/${item.poster}-400w.webp`}
+                    alt={item.alt}
+                    class="h-full w-full object-cover transition-transform duration-500 will-change-transform md:group-hover:scale-105"
+                    loading="lazy"
+                    decoding="async"
+                    width="400"
+                    height="300"
+                  />
+                  <div class="absolute inset-0 flex items-center justify-center bg-black/20 transition-opacity md:group-hover:bg-black/30">
+                    <span class="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-gold text-white shadow-gold transition-transform md:group-hover:scale-110" aria-hidden="true">&#9654;</span>
+                  </div>
+                </div>
+              )}
+              <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/70 to-transparent p-2.5 text-white">
+                <span class="mb-0.5 inline-flex rounded-full bg-white/20 px-2 py-0.5 text-[8px] uppercase tracking-[0.18em]">{item.badge}</span>
+                <p class="line-clamp-2 text-[11px] font-medium sm:text-xs">{item.alt}</p>
+              </div>
+            </button>
+          );
+        })
+      }
+    </div>
+  </div>
+
+  <div data-gallery-lightbox hidden class="gallery-lightbox-root"></div>
+</section>
+
+<style>
+  .gallery-filter {
+    border-color: hsl(var(--border) / 0.8);
+    background-color: hsl(var(--card));
+    color: hsl(var(--foreground) / 0.7);
+    border-radius: 9999px;
+    border-width: 1px;
+    padding: 0.625rem 1rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    position: relative;
+  }
+  .gallery-filter.is-active {
+    border-color: hsl(var(--gold));
+    color: hsl(var(--primary-foreground));
+    box-shadow: var(--shadow-gold);
+    background: var(--gradient-gold);
+  }
+  .gallery-filter.is-active::after {
+    content: "";
+    position: absolute;
+    bottom: -0.25rem;
+    left: 50%;
+    height: 0.125rem;
+    width: 80%;
+    transform: translateX(-50%);
+    border-radius: 9999px;
+    background-color: hsl(var(--gold));
+  }
+  :global(.gallery-lightbox-root[hidden]) {
+    display: none !important;
+  }
+  :global(.gallery-lightbox-backdrop) {
+    position: fixed;
+    inset: 0;
+    z-index: 60;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(0 0 0 / 0.95);
+    padding: 0.75rem;
+  }
+  :global(.gallery-lightbox-close) {
+    position: absolute;
+    right: 0.75rem;
+    top: 0.75rem;
+    z-index: 20;
+    display: flex;
+    height: 2.5rem;
+    width: 2.5rem;
+    align-items: center;
+    justify-content: center;
+    border-radius: 9999px;
+    font-size: 1.5rem;
+    line-height: 2rem;
+    color: rgb(255 255 255 / 0.8);
+  }
+  :global(.gallery-lightbox-close:hover) {
+    background-color: rgb(255 255 255 / 0.1);
+  }
+  :global(.gallery-lightbox-panel) {
+    width: 100%;
+    max-width: 64rem;
+  }
+  :global(.gallery-lightbox-media-wrap) {
+    overflow: hidden;
+    border-radius: 1rem;
+    border: 1px solid rgb(255 255 255 / 0.1);
+    background-color: black;
+  }
+  :global(.gallery-lightbox-media) {
+    max-height: 70vh;
+    width: 100%;
+    object-fit: contain;
+  }
+  :global(.gallery-lightbox-footer) {
+    margin-top: 0.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    color: white;
+  }
+  @media (min-width: 640px) {
+    :global(.gallery-lightbox-footer) {
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+    }
+  }
+  :global(.gallery-lightbox-badge) {
+    margin-bottom: 0.25rem;
+    display: inline-flex;
+    border-radius: 9999px;
+    background-color: rgb(255 255 255 / 0.15);
+    padding: 0.125rem 0.5rem;
+    font-size: 9px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+  :global(.gallery-lightbox-caption) {
+    font-size: 0.875rem;
+    font-weight: 500;
+  }
+  :global(.gallery-lightbox-nav) {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    align-self: flex-end;
+  }
+  @media (min-width: 640px) {
+    :global(.gallery-lightbox-nav) { align-self: auto; }
+  }
+  :global(.gallery-lightbox-nav button) {
+    border-radius: 9999px;
+    border: 1px solid rgb(255 255 255 / 0.15);
+    padding: 0.375rem 0.75rem;
+    color: rgb(255 255 255 / 0.8);
+  }
+  :global(.gallery-lightbox-nav button:hover) {
+    background-color: rgb(255 255 255 / 0.1);
+  }
+  :global(.gallery-lightbox-count) {
+    margin-right: 0.5rem;
+    font-size: 0.75rem;
+    color: rgb(255 255 255 / 0.5);
+    font-variant-numeric: tabular-nums;
+  }
+</style>

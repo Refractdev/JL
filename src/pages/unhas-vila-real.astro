@@ -1,0 +1,100 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import SectionHeader from "@/components/site/SectionHeader.astro";
+import ResponsiveImage from "@/components/site/ResponsiveImage.astro";
+import { getPageSeo } from "@/lib/seo";
+import { whatsappLink } from "@/lib/whatsapp";
+
+const seo = getPageSeo("/unhas-vila-real");
+
+const services = [
+  { title: "Unhas de Gel", desc: "Aplicação e manutenção de gel para maior resistência e durabilidade." },
+  { title: "Verniz Gel", desc: "Acabamento natural, fino e resistente que protege a unha natural." },
+  { title: "Nail Art", desc: "Desenhos personalizados, francesinha, brilhos ou pedras decorativas." },
+  { title: "Manicure Clássica", desc: "Limpeza, cutículas, hidratação e esmaltação tradicional." },
+  { title: "Pedicure Completa", desc: "Spa de pés com esfoliação e cuidado total com as unhas." },
+  { title: "Higiene e Segurança", desc: "Materiais rigorosamente esterilizados para a tua proteção." },
+];
+---
+
+<BaseLayout seo={seo}>
+  <article class="pt-[4.25rem] sm:pt-[4.75rem]">
+    <section class="section-padding">
+      <div class="container-tight grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
+        <div class="reveal">
+          <span class="pill-badge mb-5">Cuidado das Mãos e Pés</span>
+          <h1 class="mb-5 font-serif text-[1.85rem] leading-tight text-foreground sm:text-4xl lg:text-5xl">
+            Unhas <em class="not-italic text-gold">Impecáveis</em> e Elegantes
+          </h1>
+          <p class="mb-8 text-base leading-relaxed text-muted-foreground md:text-lg">
+            Manicure, pedicure e unhas de gel em <strong class="text-foreground">Vila Real</strong> — design impecável e máxima higiene no nosso estúdio. Cuidamos das tuas mãos e pés com produtos premium e técnicas atualizadas.
+          </p>
+          <a
+            href={whatsappLink("Olá! Gostaria de marcar o serviço de unhas.")}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="btn-primary"
+          >
+            Marcar Marcação
+          </a>
+        </div>
+        <div class="reveal image-frame">
+          <ResponsiveImage
+            name="materials-01"
+            alt="Estúdio de unhas em Vila Real — JL e Extensões"
+            priority
+            sizes="(max-width: 1024px) 100vw, 50vw"
+            class="aspect-[4/5] w-full rounded-[1.75rem] object-cover shadow-elegant"
+          />
+        </div>
+      </div>
+    </section>
+
+    <section class="section-padding bg-gradient-soft">
+      <div class="container-tight">
+        <SectionHeader
+          eyebrow="Serviços"
+          title="Os nossos serviços"
+          highlight="de unhas"
+          align="center"
+          class="mb-12"
+        />
+        <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          {services.map((s) => (
+            <div class="reveal card-luxury-hover p-6">
+              <h2 class="mb-2 font-serif text-xl">{s.title}</h2>
+              <p class="text-sm leading-relaxed text-muted-foreground">{s.desc}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="section-padding">
+      <div class="container-tight">
+        <SectionHeader
+          eyebrow="FAQ"
+          title="Perguntas Frequentes"
+          highlight="Unhas"
+          description="Respostas às dúvidas mais comuns sobre os nossos serviços de unhas."
+          align="center"
+          class="mb-12"
+        />
+        <div class="mx-auto max-w-3xl space-y-4">
+          <div class="reveal card-luxury p-6">
+            <h3 class="font-serif text-lg text-foreground">Quanto tempo duram as unhas de gel?</h3>
+            <p class="mt-2 text-sm leading-relaxed text-muted-foreground">As unhas de gel duram entre 3 a 4 semanas. Recomendamos manutenção a cada 15-20 dias para manter o aspeto impecável.</p>
+          </div>
+          <div class="reveal card-luxury p-6">
+            <h3 class="font-serif text-lg text-foreground">As unhas de gel estragam a unha natural?</h3>
+            <p class="mt-2 text-sm leading-relaxed text-muted-foreground">Não, quando aplicadas e removidas corretamente. No nosso estúdio seguimos todos os procedimentos de segurança para proteger a tua unha natural.</p>
+          </div>
+          <div class="reveal card-luxury p-6">
+            <h3 class="font-serif text-lg text-foreground">Fazem nail art personalizada?</h3>
+            <p class="mt-2 text-sm leading-relaxed text-muted-foreground">Sim, fazemos qualquer tipo de nail art: francesinha, desenhos, brilhos, pedras e tendências. Traz a tua inspiração e transformamos em realidade.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </article>
+</BaseLayout>

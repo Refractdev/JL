@@ -1,0 +1,81 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 35 40% 98%;
+    --foreground: 30 10% 15%;
+    --card: 0 0% 100%;
+    --card-foreground: 30 10% 15%;
+    --primary: 36 45% 52%;
+    --primary-foreground: 35 40% 98%;
+    --muted: 30 15% 90%;
+    --muted-foreground: 30 5% 45%;
+    --accent: 36 45% 52%;
+    --accent-foreground: 35 40% 98%;
+    --border: 30 15% 85%;
+    --ring: 36 45% 52%;
+    --radius: 0.75rem;
+  }
+
+  .dark {
+    --background: 30 10% 10%;
+    --foreground: 30 10% 90%;
+    --card: 30 10% 14%;
+    --card-foreground: 30 10% 90%;
+    --primary: 36 45% 52%;
+    --primary-foreground: 35 40% 98%;
+    --muted: 30 10% 20%;
+    --muted-foreground: 30 5% 60%;
+    --accent: 36 45% 52%;
+    --accent-foreground: 35 40% 98%;
+    --border: 30 10% 25%;
+    --ring: 36 45% 52%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  }
+}
+
+@layer utilities {
+  .reveal {
+    opacity: 0;
+    transform: translateY(1.5rem);
+    transition: opacity 0.7s cubic-bezier(0.25, 0.1, 0.25, 1),
+                transform 0.7s cubic-bezier(0.25, 0.1, 0.25, 1);
+  }
+
+  .reveal.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .text-pretty {
+    text-wrap: pretty;
+  }
+
+  .section-padding {
+    @apply py-16 md:py-24;
+  }
+
+  .container-tight {
+    @apply mx-auto max-w-6xl px-6 lg:px-8;
+  }
+}

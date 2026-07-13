@@ -18,10 +18,10 @@ npm start
 
 ## Deploy (Netlify)
 
-Configured via `netlify.toml` with `@netlify/plugin-nextjs`.
+Static export to `/out` (configured in `netlify.toml`).
 
-- Build command: `npm run build`
-- Node: 20
-- Plugin: Essential Next.js
+**In Netlify UI → Site settings → Build & deploy:**
+1. Clear Publish directory if it still says `dist` (Vite leftover) — `netlify.toml` forces `out`
+2. Trigger **Clear cache and deploy site**
 
-In the Netlify UI, clear any old **Publish directory** set to `dist` (Vite leftover). The Next.js plugin manages output automatically.
+Do not use the old `dist` folder.

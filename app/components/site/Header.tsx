@@ -4,8 +4,8 @@ import { useEffect, useState, useRef, useCallback } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Menu, X, MessageCircle } from "lucide-react";
-import { navLinks } from "@/src/lib/site";
-import { whatsappLink } from "@/src/lib/whatsapp";
+import { business, navLinks } from "@/src/lib/site";
+import { WA_MESSAGES, whatsappLink } from "@/src/lib/whatsapp";
 import { cn } from "@/src/lib/utils";
 
 export default function Header() {
@@ -111,29 +111,39 @@ export default function Header() {
       className={cn(
         "fixed top-0 inset-x-0 z-50 transition-all duration-500",
         scrolled
-          ? "bg-background/90 backdrop-blur-lg border-b border-border"
+          ? "bg-background/95 backdrop-blur-md border-b border-border"
           : "bg-transparent",
         isVisible ? "translate-y-0" : "-translate-y-full"
       )}
       aria-label="Navegação principal"
     >
-      <div className="mx-auto max-w-6xl px-6 lg:px-8 flex items-center justify-between h-20">
+      <div className="mx-auto max-w-6xl px-5 sm:px-6 lg:px-8 flex items-center justify-between h-20">
         <Link href="/" className="flex flex-col leading-tight">
-          <span className="font-serif text-xl md:text-2xl text-foreground">
-            JL <span className="text-primary">&amp;</span> Extensões
+          <span
+            className={cn(
+              "font-serif text-xl md:text-2xl transition-colors",
+              scrolled ? "text-foreground" : "text-primary-foreground"
+            )}
+          >
+            JL <span className={scrolled ? "text-primary" : "text-accent"}>&amp;</span> Extensões
           </span>
-          <span className="text-[10px] uppercase tracking-[0.25em] text-muted-foreground">
-            Estúdio de Beleza
+          <span
+            className={cn(
+              "text-[10px] uppercase tracking-[0.22em] transition-colors",
+              scrolled ? "text-muted-foreground" : "text-primary-foreground/75"
+            )}
+          >
+            {business.tagline}
           </span>
         </Link>
 
-        <nav className="hidden lg:flex items-center gap-9">
+        <nav className="hidden lg:flex items-center gap-8" aria-label="Principal">
           {navLinks.map((l) => {
             const isActive =
               l.href === "/"
                 ? pathname === "/"
-                : pathname.startsWith(l.href) ||
-                  (l.href.includes("#") && pathname + l.href === l.href);
+                : pathname.startsWith(l.href.split("#")[0]) &&
+                  !l.href.includes("#");
             return (
               <Link
                 key={l.href}
@@ -141,8 +151,12 @@ export default function Header() {
                 className={cn(
                   "text-sm font-medium transition-colors",
                   isActive
-                    ? "text-primary"
-                    : "text-foreground/80 hover:text-primary"
+                    ? scrolled
+                      ? "text-primary"
+                      : "text-primary-foreground"
+                    : scrolled
+                      ? "text-foreground/80 hover:text-primary"
+                      : "text-primary-foreground/85 hover:text-primary-foreground"
                 )}
               >
                 {l.label}
@@ -153,20 +167,26 @@ export default function Header() {
 
         <div className="flex items-center gap-3">
           <a
-            href={whatsappLink("Olá! Gostaria de marcar um serviço.")}
+            href={whatsappLink(WA_MESSAGES.header)}
             target="_blank"
             rel="noopener noreferrer"
-            className="hidden md:inline-flex items-center gap-2 bg-primary text-primary-foreground px-5 py-2.5 rounded-full text-sm font-medium shadow-md hover:opacity-90 hover:scale-[1.02] transition-all"
+            className="hidden md:inline-flex items-center gap-2 bg-primary text-primary-foreground px-5 py-2.5 text-sm font-medium hover:opacity-90 transition-opacity min-h-[44px]"
           >
-            <MessageCircle className="w-4 h-4" />
+            <MessageCircle className="w-4 h-4" aria-hidden />
             WhatsApp
           </a>
           <button
             ref={menuButtonRef}
+            type="button"
             aria-label={open ? "Fechar menu" : "Abrir menu"}
             aria-expanded={open}
             aria-controls="mobile-menu"
-            className="lg:hidden p-2 text-foreground rounded-lg hover:bg-muted transition-colors focus:outline-none focus:ring-2 focus:ring-ring"
+            className={cn(
+              "lg:hidden p-2 rounded-sm transition-colors",
+              scrolled
+                ? "text-foreground hover:bg-muted"
+                : "text-primary-foreground hover:bg-foreground/10"
+            )}
             onClick={() => setOpen((o) => !o)}
           >
             {open ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -178,43 +198,32 @@ export default function Header() {
         id="mobile-menu"
         ref={mobileMenuRef}
         className={cn(
-          "lg:hidden fixed inset-x-0 top-[80px] bg-background/95 backdrop-blur-xl border-t border-border overflow-hidden transition-all duration-300 ease-out",
+          "lg:hidden fixed inset-x-0 top-[80px] bg-background border-t border-border overflow-hidden transition-all duration-300 ease-out",
           open
             ? "max-h-[calc(100vh-80px)] opacity-100"
             : "max-h-0 opacity-0 pointer-events-none"
         )}
         aria-hidden={!open}
       >
-        <div className="mx-auto max-w-6xl px-6 lg:px-8 py-6 flex flex-col gap-2">
-          {navLinks.map((l) => {
-            const isActive =
-              l.href === "/"
-                ? pathname === "/"
-                : pathname.startsWith(l.href) ||
-                  (l.href.includes("#") && pathname + l.href === l.href);
-            return (
-              <Link
-                key={l.href}
-                href={l.href}
-                onClick={handleLinkClick}
-                className={cn(
-                  "text-base font-medium py-3 px-4 rounded-xl transition-all focus:outline-none focus:ring-2 focus:ring-ring",
-                  isActive
-                    ? "text-primary bg-primary/5"
-                    : "text-foreground/80 hover:text-primary hover:bg-muted/50"
-                )}
-              >
-                {l.label}
-              </Link>
-            );
-          })}
+        <div className="mx-auto max-w-6xl px-5 sm:px-6 py-6 flex flex-col gap-1">
+          {navLinks.map((l) => (
+            <Link
+              key={l.href}
+              href={l.href}
+              onClick={handleLinkClick}
+              className="text-base font-medium py-3 px-3 text-foreground/90 hover:text-primary hover:bg-muted/60 transition-colors"
+            >
+              {l.label}
+            </Link>
+          ))}
           <a
-            href={whatsappLink("Olá! Gostaria de marcar um serviço.")}
+            href={whatsappLink(WA_MESSAGES.header)}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center justify-center gap-2 bg-primary text-primary-foreground px-5 py-3 rounded-full text-sm font-medium mt-4 hover:scale-[1.02] transition-transform focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
+            className="btn-primary mt-4 min-h-[48px]"
           >
-            <MessageCircle className="w-4 h-4" /> Marcar no WhatsApp
+            <MessageCircle className="w-4 h-4" aria-hidden />
+            Marcar no WhatsApp
           </a>
         </div>
       </div>

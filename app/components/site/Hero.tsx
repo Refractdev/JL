@@ -1,55 +1,72 @@
 import Link from "next/link";
-import { MessageCircle, ChevronDown } from "lucide-react";
-import { whatsappLink } from "@/src/lib/whatsapp";
+import { MessageCircle } from "lucide-react";
+import { WA_MESSAGES, whatsappLink } from "@/src/lib/whatsapp";
+import { imageSrc } from "@/src/lib/images";
+import OptimizedImage from "@/app/components/site/OptimizedImage";
+
+const HERO_IMAGE = "gallery-extensions-01";
 
 export default function Hero() {
   return (
     <section
       id="inicio"
-      className="relative min-h-screen w-full overflow-hidden flex items-center"
+      className="relative min-h-[100svh] w-full overflow-hidden flex items-end md:items-center"
     >
-      <div className="absolute inset-0 bg-gradient-to-br from-background via-background to-primary/10" />
+      {/* Preload LCP for instant first paint on mobile */}
+      <link
+        rel="preload"
+        as="image"
+        href={imageSrc(HERO_IMAGE, 800)}
+        imageSrcSet={`${imageSrc(HERO_IMAGE, 400)} 400w, ${imageSrc(HERO_IMAGE, 800)} 800w, ${imageSrc(HERO_IMAGE, 1200)} 1200w`}
+        imageSizes="100vw"
+      />
 
-      <div className="relative z-10 mx-auto max-w-6xl px-6 lg:px-8 w-full pt-28 pb-20">
-        <div className="max-w-3xl">
-          <span className="inline-block text-xs tracking-[0.4em] uppercase text-primary mb-6">
-            Estúdio Premium &middot; Vila Real
-          </span>
-          <h1 className="font-serif text-5xl md:text-7xl text-foreground leading-[1.05] mb-6">
-            Realça a tua beleza natural
-          </h1>
-          <p className="text-base md:text-lg text-muted-foreground max-w-xl mb-10 leading-relaxed">
-            Extensões de cabelo de qualidade premium, cuidado capilar
-            especializado e todos os serviços de beleza num só lugar.
-            Transformamos a tua autoestima.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4">
-            <a
-              href={whatsappLink(
-                "Olá! Gostaria de marcar um serviço na JL e Extensões."
-              )}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center justify-center gap-2 bg-primary text-primary-foreground px-8 py-4 rounded-full text-base font-medium shadow-md hover:opacity-90 hover:scale-[1.03] transition-all"
-            >
-              <MessageCircle className="w-5 h-5" />
-              Marcar sessão
-            </a>
-            <Link
-              href="/#servicos"
-              className="inline-flex items-center justify-center gap-2 border-2 border-primary/30 text-foreground px-8 py-4 rounded-full text-base font-medium hover:border-primary hover:bg-primary/5 transition-colors"
-            >
-              Ver serviços
-            </Link>
-          </div>
+      <OptimizedImage
+        baseName={HERO_IMAGE}
+        alt="Resultado de extensões de cabelo natural na JL e Extensões, Vila Real"
+        fill
+        priority
+        widthHint={800}
+        sizes="100vw"
+        quality={75}
+        className="absolute inset-0"
+        imgClassName="object-cover object-[center_20%] sm:object-center motion-safe:md:animate-[heroZoom_18s_ease-out_forwards]"
+      />
+      <div
+        className="absolute inset-0 bg-gradient-to-t from-foreground/80 via-foreground/45 to-foreground/25"
+        aria-hidden
+      />
+
+      <div className="relative z-10 container-tight w-full pt-24 pb-28 md:pt-28 md:pb-24">
+        <p className="text-[10px] sm:text-[11px] tracking-[0.28em] uppercase text-primary-foreground/85 mb-3 sm:mb-4">
+          JL e Extensões · Vila Real
+        </p>
+        <h1 className="font-serif text-[2.15rem] leading-[1.08] sm:text-5xl md:text-6xl lg:text-7xl text-primary-foreground max-w-3xl text-balance mb-4 sm:mb-5">
+          Extensões de cabelo natural em Vila Real
+        </h1>
+        <p className="text-[0.95rem] sm:text-base md:text-lg text-primary-foreground/90 max-w-xl mb-7 sm:mb-8 leading-relaxed text-pretty">
+          Transformações elegantes com resultado natural e personalizado.
+        </p>
+        <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
+          <a
+            href={whatsappLink(WA_MESSAGES.hero)}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn-primary min-h-[48px] bg-primary-foreground text-foreground hover:opacity-95 text-center"
+          >
+            <MessageCircle className="w-5 h-5 shrink-0" aria-hidden />
+            <span className="sm:hidden">Avaliação gratuita</span>
+            <span className="hidden sm:inline">
+              Pedir avaliação gratuita no WhatsApp
+            </span>
+          </a>
+          <Link
+            href="/#resultados"
+            className="btn-secondary min-h-[48px] border-primary-foreground/40 text-primary-foreground hover:border-primary-foreground hover:text-primary-foreground"
+          >
+            Ver resultados
+          </Link>
         </div>
-      </div>
-
-      <div className="hidden md:flex absolute bottom-8 left-1/2 -translate-x-1/2 z-10 flex-col items-center gap-2 text-muted-foreground">
-        <span className="text-[10px] tracking-[0.3em] uppercase">
-          Descobre mais
-        </span>
-        <ChevronDown className="w-5 h-5 animate-bounce" />
       </div>
     </section>
   );

@@ -129,7 +129,7 @@ export const galleryItems: GalleryItem[] = [
   {
     type: "image",
     name: "materials-02",
-    alt: "Materiais de extensão premium",
+    alt: "Materiais de extensão de cabelo natural",
     category: "Detalhes",
     badge: "Premium",
     size: "col-span-1 row-span-1",

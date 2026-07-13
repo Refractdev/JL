@@ -1,80 +1,138 @@
-import { Sparkles, ArrowRight } from "lucide-react"
-import { serviceCards } from "@/src/lib/site"
-import { whatsappLink } from "@/src/lib/whatsapp"
-import Link from "next/link"
-
-const icons = [Sparkles, Sparkles, Sparkles, Sparkles, Sparkles] as const
+import Link from "next/link";
+import { ArrowRight, MessageCircle } from "lucide-react";
+import { featuredService, serviceCards } from "@/src/lib/site";
+import { whatsappLink } from "@/src/lib/whatsapp";
+import OptimizedImage from "@/app/components/site/OptimizedImage";
 
 export default function Services() {
   return (
-    <section id="servicos" className="section-padding bg-muted/40">
+    <section
+      id="servicos"
+      className="section-padding bg-muted/50"
+      aria-labelledby="services-heading"
+    >
       <div className="container-tight">
         <div className="max-w-2xl mb-12">
-          <div className="w-12 h-0.5 bg-primary mb-4" />
-          <span className="text-xs tracking-[0.3em] uppercase text-muted-foreground font-medium">
+          <p className="text-[11px] tracking-[0.28em] uppercase text-muted-foreground mb-3">
             Serviços
-          </span>
-          <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl text-foreground leading-tight mt-2">
-            O que oferecemos
+          </p>
+          <h2
+            id="services-heading"
+            className="font-serif text-3xl md:text-4xl lg:text-5xl text-foreground leading-tight text-balance"
+          >
+            O que podes marcar
           </h2>
         </div>
 
-        <div className="relative rounded-xl overflow-hidden shadow-md mb-10 bg-gradient-to-br from-primary/10 via-background to-amber-50/50 border border-border">
-          <div className="grid md:grid-cols-2 gap-6 p-6 md:p-8">
-            <div className="space-y-4 flex flex-col justify-center">
-              <span className="text-xs tracking-[0.3em] uppercase text-primary font-medium">
-                Especialidade
-              </span>
-              <h3 className="font-serif text-2xl md:text-3xl text-foreground">
-                Extensões de Cabelo
-              </h3>
-              <p className="text-muted-foreground leading-relaxed">
-                Cabelo natural premium em diversas cores e comprimentos. Aplicação
-                profissional que respeita o teu cabelo e garante um resultado
-                deslumbrante e duradouro.
-              </p>
-              <Link
-                href="/extensoes-cabelo-vila-real"
-                className="inline-flex items-center gap-2 text-primary font-medium text-sm hover:underline w-fit"
+        {/* Featured: Extensões */}
+        <article className="grid md:grid-cols-2 gap-0 mb-10 overflow-hidden border border-border bg-card">
+          <div className="relative aspect-[4/5] md:aspect-auto md:min-h-[360px] order-first">
+            <OptimizedImage
+              baseName={featuredService.image}
+              alt={featuredService.imageAlt}
+              fill
+              widthHint={800}
+              sizes="(max-width: 768px) 100vw, 50vw"
+              quality={70}
+              className="absolute inset-0"
+              imgClassName="object-cover"
+            />
+          </div>
+          <div className="flex flex-col justify-center p-6 md:p-10 space-y-4">
+            <p className="text-[11px] tracking-[0.28em] uppercase text-primary">
+              Serviço principal
+            </p>
+            <h3 className="font-serif text-2xl md:text-3xl text-foreground">
+              {featuredService.title}
+            </h3>
+            <p className="text-muted-foreground leading-relaxed">
+              {featuredService.benefit}
+            </p>
+            <p className="text-sm font-medium text-foreground">
+              {featuredService.pricingNote}
+            </p>
+            <div className="flex flex-col sm:flex-row gap-3 pt-2">
+              <a
+                href={whatsappLink(featuredService.message)}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-primary"
               >
-                Saber mais <ArrowRight className="w-4 h-4" />
+                <MessageCircle className="w-4 h-4" aria-hidden />
+                {featuredService.ctaLabel}
+              </a>
+              <Link
+                href={featuredService.link}
+                className="btn-secondary"
+              >
+                {featuredService.secondaryCtaLabel}
+                <ArrowRight className="w-4 h-4" aria-hidden />
               </Link>
             </div>
-            <div className="rounded-lg overflow-hidden bg-gradient-to-br from-primary/20 to-amber-200/30 aspect-[4/3]" />
           </div>
-        </div>
+        </article>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {serviceCards.map((service, index) => {
-            const Icon = icons[index % icons.length]
-            const isWhatsApp = "message" in service && service.message
-            const href = isWhatsApp
-              ? whatsappLink(service.message)
-              : ("link" in service && service.link) || "#"
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          {serviceCards.map((service) => {
+            const isWhatsApp = Boolean(service.message);
+            const ctaClass =
+              "inline-flex items-center gap-1.5 text-sm font-medium text-primary pt-2 hover:underline underline-offset-4";
 
             return (
-              <a
+              <article
                 key={service.title}
-                href={href}
-                target={isWhatsApp ? "_blank" : undefined}
-                rel={isWhatsApp ? "noopener noreferrer" : undefined}
-                className="group bg-card rounded-xl shadow-sm hover:shadow-md transition-all p-6 border border-border block"
+                className="group flex flex-col border border-border bg-card overflow-hidden"
               >
-                <Icon className="w-8 h-8 text-primary mb-4" />
-                <h3 className="font-serif text-lg text-foreground mb-2">
-                  {service.title}
-                </h3>
-                <p className="text-sm text-muted-foreground leading-relaxed mb-4">
-                  {service.description}
-                </p>
-                <span className="inline-flex items-center gap-1.5 text-sm text-primary font-medium">
-                  Saiba mais <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
-                </span>
-              </a>
-            )
+                <div className="relative aspect-[4/3] overflow-hidden bg-muted">
+                  <OptimizedImage
+                    baseName={service.image}
+                    alt={service.imageAlt}
+                    fill
+                    widthHint={400}
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                    quality={65}
+                    className="absolute inset-0"
+                    imgClassName="object-cover transition-transform duration-700 group-hover:scale-105"
+                  />
+                </div>
+                <div className="flex flex-col flex-1 p-5 space-y-2">
+                  <h3 className="font-serif text-xl text-foreground">
+                    {service.title}
+                  </h3>
+                  <p className="text-sm text-muted-foreground leading-relaxed flex-1">
+                    {service.benefit}
+                  </p>
+                  <p className="text-xs text-foreground/70 pt-1">
+                    {service.pricingNote}
+                  </p>
+                  {isWhatsApp ? (
+                    <a
+                      href={whatsappLink(service.message)}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={ctaClass}
+                    >
+                      {service.ctaLabel}
+                      <ArrowRight
+                        className="w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5"
+                        aria-hidden
+                      />
+                    </a>
+                  ) : (
+                    <Link href={service.link || "#"} className={ctaClass}>
+                      {service.ctaLabel}
+                      <ArrowRight
+                        className="w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5"
+                        aria-hidden
+                      />
+                    </Link>
+                  )}
+                </div>
+              </article>
+            );
           })}
         </div>
       </div>
     </section>
-  )
+  );
 }

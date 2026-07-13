@@ -1,6 +1,7 @@
 "use client"
 
 import { useState, useEffect, useRef, useCallback } from "react"
+import Image from "next/image"
 import { X, ChevronLeft, ChevronRight } from "lucide-react"
 import { galleryItems, galleryFilters, imageFull, type GalleryCategory } from "@/src/lib/gallery-data"
 
@@ -105,12 +106,13 @@ export default function Gallery() {
                 className={`group relative overflow-hidden rounded-lg bg-muted border border-border text-left ${item.size}`}
                 aria-label={`Ver ${item.type === "video" ? "vídeo" : "imagem"}: ${item.alt}`}
               >
-                <div className="aspect-[4/5]">
-                  <img
+                <div className="aspect-[4/5] relative">
+                  <Image
                     src={src}
                     alt={item.alt}
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                    loading="lazy"
+                    fill
+                    sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
+                    className="object-cover transition-transform duration-500 group-hover:scale-105"
                   />
                 </div>
                 <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/60 to-transparent p-3">
@@ -167,11 +169,13 @@ export default function Gallery() {
             onClick={(e) => e.stopPropagation()}
           >
             {openItem.type === "image" ? (
-              <img
+              <Image
                 src={imageFull(openItem.name)}
                 alt={openItem.alt}
-                className="max-h-[80vh] w-auto max-w-full object-contain rounded-lg"
-                loading="eager"
+                width={1200}
+                height={1500}
+                className="max-h-[80vh] w-auto max-w-full object-contain"
+                priority
               />
             ) : (
               <video

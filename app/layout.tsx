@@ -1,27 +1,28 @@
 import type { Metadata } from "next";
-import { Inter, Playfair_Display } from "next/font/google";
+import { Cormorant_Garamond, DM_Sans } from "next/font/google";
 import "./globals.css";
 
-const inter = Inter({
+const dmSans = DM_Sans({
   subsets: ["latin"],
-  variable: "--font-inter",
+  variable: "--font-sans",
   display: "swap",
 });
 
-const playfair = Playfair_Display({
+const cormorant = Cormorant_Garamond({
   subsets: ["latin"],
-  variable: "--font-playfair",
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-display",
   display: "swap",
 });
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://xn--jlextenses-9bb.com"),
   title: {
-    default: "JL e Extensões | Extensões de Cabelo e Beleza em Vila Real",
+    default: "JL e Extensões | Extensões de Cabelo em Vila Real",
     template: "%s | JL e Extensões",
   },
   description:
-    "Estúdio premium em Vila Real especialista em extensões de cabelo, cabeleireiro, maquilhagem, cílios, unhas e depilação. Realça a tua beleza connosco.",
+    "Extensões de cabelo natural em Vila Real. Avaliação gratuita e orçamento personalizado pelo WhatsApp. Também maquilhagem, unhas e mais.",
   keywords: [
     "extensões de cabelo vila real",
     "cabeleireiro vila real",
@@ -36,28 +37,31 @@ export const metadata: Metadata = {
     type: "website",
     locale: "pt_PT",
     siteName: "JL e Extensões",
-    title: "JL e Extensões | Extensões de Cabelo e Beleza em Vila Real",
+    title: "JL e Extensões | Extensões de Cabelo em Vila Real",
     description:
-      "Estúdio premium em Vila Real especialista em extensões de cabelo, cabeleireiro, maquilhagem, cílios, unhas e depilação.",
+      "Extensões de cabelo natural em Vila Real. Avaliação gratuita e orçamento personalizado pelo WhatsApp.",
     images: [
       {
         url: "/og-image.jpg",
         width: 1200,
         height: 630,
-        alt: "JL e Extensões",
+        alt: "JL e Extensões — Extensões de cabelo em Vila Real",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "JL e Extensões | Extensões de Cabelo e Beleza em Vila Real",
+    title: "JL e Extensões | Extensões de Cabelo em Vila Real",
     description:
-      "Estúdio premium em Vila Real especialista em extensões de cabelo, cabeleireiro, maquilhagem, cílios, unhas e depilação.",
+      "Extensões de cabelo natural em Vila Real. Avaliação gratuita e orçamento personalizado pelo WhatsApp.",
     images: ["/og-image.jpg"],
   },
   robots: {
     index: true,
     follow: true,
+  },
+  alternates: {
+    canonical: "/",
   },
 };
 
@@ -67,7 +71,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="pt" className={`${inter.variable} ${playfair.variable}`}>
+    <html lang="pt" className={`${dmSans.variable} ${cormorant.variable}`}>
       <body className="min-h-screen bg-background font-sans antialiased">
         {children}
       </body>

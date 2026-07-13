@@ -1,4 +1,9 @@
-export type GalleryCategory = "Todas" | "Cabelo" | "Transformações" | "Detalhes" | "Vídeos";
+export type GalleryCategory =
+  | "Todas"
+  | "Cabelo"
+  | "Transformações"
+  | "Detalhes"
+  | "Vídeos";
 
 export type GalleryItem =
   | {
@@ -27,37 +32,38 @@ export const galleryFilters: GalleryCategory[] = [
   "Vídeos",
 ];
 
+/** Curated gallery — prefer client results over inventory shots in first slots */
 export const galleryItems: GalleryItem[] = [
   {
     type: "image",
-    name: "gallery-hair-before-after-01",
-    alt: "Antes e depois de aplicação de extensões",
-    category: "Transformações",
-    badge: "Transformação",
+    name: "hair-01",
+    alt: "Resultado de extensões de cabelo com brilho e comprimento",
+    category: "Cabelo",
+    badge: "Resultado",
     size: "col-span-2 row-span-2",
   },
   {
     type: "image",
-    name: "gallery-extensions-01",
-    alt: "Extensões de cabelo com volume natural",
+    name: "hair-02",
+    alt: "Extensões de cabelo em Vila Real — resultado final",
     category: "Cabelo",
     badge: "Extensões",
     size: "col-span-1 row-span-1",
   },
   {
     type: "image",
-    name: "gallery-blonde-01",
-    alt: "Cabelo loiro com extensões",
-    category: "Cabelo",
-    badge: "Loiro",
+    name: "before-01",
+    alt: "Antes da aplicação de extensões",
+    category: "Transformações",
+    badge: "Antes",
     size: "col-span-1 row-span-1",
   },
   {
     type: "image",
-    name: "gallery-makeup-01",
-    alt: "Maquilhagem profissional",
-    category: "Detalhes",
-    badge: "Makeup",
+    name: "hair-05",
+    alt: "Penteado e resultado no estúdio",
+    category: "Cabelo",
+    badge: "Penteado",
     size: "col-span-1 row-span-1",
   },
   {
@@ -71,18 +77,10 @@ export const galleryItems: GalleryItem[] = [
   },
   {
     type: "image",
-    name: "hair-01",
-    alt: "Cabelo liso com brilho",
+    name: "gallery-blonde-01",
+    alt: "Cabelo loiro com extensões",
     category: "Cabelo",
-    badge: "Liso",
-    size: "col-span-1 row-span-1",
-  },
-  {
-    type: "image",
-    name: "hair-02",
-    alt: "Extensões de cabelo em Vila Real",
-    category: "Cabelo",
-    badge: "Resultado",
+    badge: "Loiro",
     size: "col-span-1 row-span-1",
   },
   {
@@ -96,7 +94,7 @@ export const galleryItems: GalleryItem[] = [
   {
     type: "image",
     name: "materials-01",
-    alt: "Variedade de cores de extensões",
+    alt: "Variedade de cores de extensões no estúdio",
     category: "Detalhes",
     badge: "Cores",
     size: "col-span-1 row-span-1",
@@ -112,32 +110,16 @@ export const galleryItems: GalleryItem[] = [
   },
   {
     type: "image",
-    name: "hair-05",
-    alt: "Penteado elegante",
-    category: "Cabelo",
-    badge: "Penteado",
-    size: "col-span-1 row-span-1",
-  },
-  {
-    type: "image",
     name: "updo-01",
-    alt: "Coque sofisticado",
+    alt: "Coque e penteado no estúdio",
     category: "Cabelo",
     badge: "Coque",
     size: "col-span-1 row-span-1",
   },
   {
     type: "image",
-    name: "materials-02",
-    alt: "Materiais de extensão premium",
-    category: "Detalhes",
-    badge: "Premium",
-    size: "col-span-1 row-span-1",
-  },
-  {
-    type: "image",
-    name: "hair-06",
-    alt: "Cabelo ondulado com movimento",
+    name: "gallery-extensions-01",
+    alt: "Extensões de cabelo com volume",
     category: "Cabelo",
     badge: "Volume",
     size: "col-span-1 row-span-1",
@@ -145,15 +127,23 @@ export const galleryItems: GalleryItem[] = [
   {
     type: "image",
     name: "extension-process-03",
-    alt: "Resultado final das extensões",
+    alt: "Resultado após aplicação de extensões",
     category: "Transformações",
     badge: "Final",
     size: "col-span-1 row-span-1",
   },
   {
     type: "image",
-    name: "materials-04",
-    alt: "Extensões variadas prontas para aplicação",
+    name: "hair-06",
+    alt: "Cabelo ondulado com movimento",
+    category: "Cabelo",
+    badge: "Movimento",
+    size: "col-span-1 row-span-1",
+  },
+  {
+    type: "image",
+    name: "materials-02",
+    alt: "Materiais de extensão no estúdio",
     category: "Detalhes",
     badge: "Studio",
     size: "col-span-1 row-span-1",
@@ -163,13 +153,13 @@ export const galleryItems: GalleryItem[] = [
     name: "hair-08",
     alt: "Cabelo ondulado castanho",
     category: "Cabelo",
-    badge: "Glow",
+    badge: "Castanho",
     size: "col-span-1 row-span-1",
   },
   {
     type: "image",
     name: "materials-05",
-    alt: "Extensão preta longa",
+    alt: "Extensão longa pronta para aplicação",
     category: "Detalhes",
     badge: "Comprimento",
     size: "col-span-1 row-span-1",

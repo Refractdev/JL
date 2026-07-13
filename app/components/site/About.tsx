@@ -1,51 +1,59 @@
-import { CheckCircle2 } from "lucide-react"
-import { business } from "@/src/lib/site"
-
-const highlights = [
-  "Extensões de cabelo premium com aplicação profissional",
-  "Ambiente acolhedor e atendimento personalizado",
-  "Resultados naturais que transformam a tua autoestima",
-]
+import Image from "next/image";
+import { MessageCircle } from "lucide-react";
+import { business } from "@/src/lib/site";
+import { whatsappLink } from "@/src/lib/whatsapp";
+import { imageSrc } from "@/src/lib/images";
 
 export default function About() {
   return (
-    <section id="about" className="section-padding">
-      <div className="container-tight grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-        <div className="relative">
-          <div className="absolute -inset-2 bg-primary/10 blur-3xl rounded-3xl" />
-          <div className="relative rounded-2xl shadow-lg overflow-hidden aspect-[4/5]">
-            <div className="w-full h-full bg-gradient-to-br from-primary/20 to-amber-100/40" />
-          </div>
+    <section id="sobre" className="section-padding">
+      <div className="container-tight grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+        <div className="relative aspect-[4/5] overflow-hidden bg-muted order-2 lg:order-1">
+          <Image
+            src={imageSrc("hair-05", 800)}
+            alt={`${business.owner} — trabalho de extensões no estúdio JL e Extensões`}
+            fill
+            sizes="(max-width: 1024px) 100vw, 50vw"
+            className="object-cover"
+          />
         </div>
 
-        <div className="space-y-6">
-          <div className="w-12 h-0.5 bg-primary" />
-          <span className="text-xs tracking-[0.3em] uppercase text-muted-foreground font-medium">
-            Sobre nós
+        <div className="space-y-5 order-1 lg:order-2">
+          <span className="text-xs tracking-[0.28em] uppercase text-muted-foreground">
+            Sobre
           </span>
-          <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl text-foreground leading-tight">
-            O teu estúdio de beleza em Vila Real
+          <h2 className="font-display text-3xl md:text-4xl lg:text-5xl text-foreground text-balance">
+            A Joice por trás da JL
           </h2>
           <p className="text-muted-foreground leading-relaxed">
-            Na {business.name}, dedicamo-nos a realçar a tua beleza natural com serviços
-            personalizados de excelência. Com anos de experiência e paixão pelo que fazemos,
-            cada cliente recebe um atendimento único num ambiente pensado para o teu bem-estar.
+            Sou a {business.owner}. No estúdio em Vila Real, o foco são
+            extensões de cabelo natural — e um atendimento claro, sem pressa,
+            para chegares a um resultado que te reconheças.
           </p>
           <p className="text-muted-foreground leading-relaxed">
-            Desde extensões de cabelo de qualidade premium a tratamentos capilares
-            especializados, cada serviço é executado com técnica apurada e os melhores
-            produtos do mercado.
+            Decidimos juntas o comprimento, o volume e a técnica. Explico o
+            processo, a manutenção e o que faz sentido para o teu cabelo e o teu
+            dia a dia. Também podes marcar maquilhagem, unhas e outros serviços
+            de beleza no mesmo espaço.
           </p>
-          <ul className="space-y-3 pt-2">
-            {highlights.map((item) => (
-              <li key={item} className="flex items-start gap-3">
-                <CheckCircle2 className="w-5 h-5 text-primary shrink-0 mt-0.5" />
-                <span className="text-foreground/80">{item}</span>
-              </li>
-            ))}
+          <ul className="space-y-2 pt-1 text-sm text-foreground/85">
+            <li>— Especialização em extensões</li>
+            <li>— Atendimento em Vila Real</li>
+            <li>— Avaliação gratuita e orçamento pelo WhatsApp</li>
           </ul>
+          <a
+            href={whatsappLink(
+              "Olá Joice! Gostaria de falar contigo sobre uma marcação."
+            )}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center justify-center gap-2 bg-primary text-primary-foreground px-6 py-3 text-sm font-medium hover:opacity-95 mt-2"
+          >
+            <MessageCircle className="w-4 h-4" />
+            Falar com a Joice no WhatsApp
+          </a>
         </div>
       </div>
     </section>
-  )
+  );
 }

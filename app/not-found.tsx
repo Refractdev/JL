@@ -7,7 +7,7 @@ export default function NotFound() {
     <>
       <Header />
       <main className="flex min-h-[70vh] flex-col items-center justify-center px-6 text-center">
-        <h1 className="font-serif text-8xl font-bold tracking-tight text-primary">
+        <h1 className="font-display text-8xl font-bold tracking-tight text-primary">
           404
         </h1>
         <p className="mt-4 text-xl text-muted-foreground">
@@ -18,7 +18,7 @@ export default function NotFound() {
         </p>
         <Link
           href="/"
-          className="mt-8 inline-flex items-center justify-center rounded-full bg-primary px-8 py-3 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
+          className="mt-8 inline-flex items-center justify-center bg-primary px-8 py-3 text-sm font-medium text-primary-foreground hover:opacity-95"
         >
           Voltar ao início
         </Link>

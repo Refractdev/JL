@@ -1,92 +1,99 @@
-"use client"
+"use client";
 
-import { useState, useEffect, useRef, useCallback } from "react"
-import { X, ChevronLeft, ChevronRight } from "lucide-react"
-import { galleryItems, galleryFilters, imageFull, type GalleryCategory } from "@/src/lib/gallery-data"
+import { useState, useEffect, useRef, useCallback } from "react";
+import Image from "next/image";
+import { X, ChevronLeft, ChevronRight } from "lucide-react";
+import {
+  galleryItems,
+  galleryFilters,
+  imageFull,
+  type GalleryCategory,
+} from "@/src/lib/gallery-data";
 
 export default function Gallery() {
-  const [activeFilter, setActiveFilter] = useState<GalleryCategory>("Todas")
-  const [lightboxIndex, setLightboxIndex] = useState<number | null>(null)
-  const lightboxRef = useRef<HTMLDivElement>(null)
+  const [activeFilter, setActiveFilter] = useState<GalleryCategory>("Todas");
+  const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
+  const lightboxRef = useRef<HTMLDivElement>(null);
 
   const filteredItems =
     activeFilter === "Todas"
       ? galleryItems
-      : galleryItems.filter((item) => item.category === activeFilter)
+      : galleryItems.filter((item) => item.category === activeFilter);
 
-  const openItem = lightboxIndex !== null ? filteredItems[lightboxIndex] : null
+  const openItem = lightboxIndex !== null ? filteredItems[lightboxIndex] : null;
 
-  const close = useCallback(() => setLightboxIndex(null), [])
+  const close = useCallback(() => setLightboxIndex(null), []);
 
   const prev = useCallback(() => {
     setLightboxIndex((i) =>
-      i !== null ? (i - 1 + filteredItems.length) % filteredItems.length : null,
-    )
-  }, [filteredItems.length])
+      i !== null ? (i - 1 + filteredItems.length) % filteredItems.length : null
+    );
+  }, [filteredItems.length]);
 
   const next = useCallback(() => {
     setLightboxIndex((i) =>
-      i !== null ? (i + 1) % filteredItems.length : null,
-    )
-  }, [filteredItems.length])
+      i !== null ? (i + 1) % filteredItems.length : null
+    );
+  }, [filteredItems.length]);
 
   useEffect(() => {
-    if (lightboxIndex === null) return
+    if (lightboxIndex === null) return;
 
     const handleKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") close()
-      if (e.key === "ArrowLeft") prev()
-      if (e.key === "ArrowRight") next()
-    }
+      if (e.key === "Escape") close();
+      if (e.key === "ArrowLeft") prev();
+      if (e.key === "ArrowRight") next();
+    };
 
-    document.body.style.overflow = "hidden"
-    document.addEventListener("keydown", handleKey)
+    document.body.style.overflow = "hidden";
+    document.addEventListener("keydown", handleKey);
 
-    const btn = lightboxRef.current?.querySelector('[aria-label="Fechar"]') as HTMLElement
-    btn?.focus()
+    const btn = lightboxRef.current?.querySelector(
+      '[aria-label="Fechar"]'
+    ) as HTMLElement;
+    btn?.focus();
 
     return () => {
-      document.body.style.overflow = ""
-      document.removeEventListener("keydown", handleKey)
-    }
-  }, [lightboxIndex, close, prev, next])
+      document.body.style.overflow = "";
+      document.removeEventListener("keydown", handleKey);
+    };
+  }, [lightboxIndex, close, prev, next]);
 
-  const touchX = useRef(0)
+  const touchX = useRef(0);
 
   return (
-    <section id="galeria" className="section-padding">
+    <section id="galeria" className="section-padding bg-card">
       <div className="container-tight">
-        <div className="max-w-2xl mb-10">
-          <div className="w-12 h-0.5 bg-primary mb-4" />
-          <span className="text-xs tracking-[0.3em] uppercase text-muted-foreground font-medium">
+        <div className="max-w-2xl mb-8">
+          <span className="text-xs tracking-[0.28em] uppercase text-muted-foreground">
             Galeria
           </span>
-          <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl text-foreground leading-tight mt-2">
-            O nosso trabalho
+          <h2 className="font-display text-3xl md:text-4xl lg:text-5xl text-foreground mt-2 text-balance">
+            Trabalhos no estúdio
           </h2>
         </div>
 
         <div className="flex flex-wrap gap-2 mb-8">
           {galleryFilters.map((filter) => {
-            const isActive = filter === activeFilter
+            const isActive = filter === activeFilter;
             return (
               <button
                 key={filter}
                 type="button"
                 onClick={() => {
-                  setActiveFilter(filter)
-                  setLightboxIndex(null)
+                  setActiveFilter(filter);
+                  setLightboxIndex(null);
                 }}
                 aria-pressed={isActive}
-                className={`px-4 py-2 text-sm font-medium rounded-full border transition-colors ${
+                className={`px-4 py-2 text-sm font-medium border transition-colors ${
                   isActive
                     ? "bg-primary text-primary-foreground border-primary"
-                    : "bg-card text-muted-foreground border-border hover:border-primary/40"
+                    : "bg-background text-muted-foreground border-border hover:border-primary/40"
                 }`}
               >
                 {filter}
               </button>
-            )
+            );
           })}
         </div>
 
@@ -95,22 +102,23 @@ export default function Gallery() {
             const src =
               item.type === "image"
                 ? imageFull(item.name)
-                : `/images/${item.poster}-1200w.jpg`
+                : `/images/${item.poster}-800w.jpg`;
 
             return (
               <button
                 key={`${item.alt}-${index}`}
                 type="button"
                 onClick={() => setLightboxIndex(index)}
-                className={`group relative overflow-hidden rounded-lg bg-muted border border-border text-left ${item.size}`}
+                className={`group relative overflow-hidden bg-muted border border-border text-left ${item.size}`}
                 aria-label={`Ver ${item.type === "video" ? "vídeo" : "imagem"}: ${item.alt}`}
               >
-                <div className="aspect-[4/5]">
-                  <img
+                <div className="relative aspect-[4/5]">
+                  <Image
                     src={src}
                     alt={item.alt}
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                    loading="lazy"
+                    fill
+                    sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
+                    className="object-cover transition-transform duration-500 group-hover:scale-105"
                   />
                 </div>
                 <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/60 to-transparent p-3">
@@ -119,7 +127,7 @@ export default function Gallery() {
                   </span>
                 </div>
               </button>
-            )
+            );
           })}
         </div>
       </div>
@@ -129,10 +137,12 @@ export default function Gallery() {
           ref={lightboxRef}
           className="fixed inset-0 z-50 flex items-center justify-center bg-black/95 p-4"
           onClick={close}
-          onTouchStart={(e) => { touchX.current = e.changedTouches[0].screenX }}
+          onTouchStart={(e) => {
+            touchX.current = e.changedTouches[0].screenX;
+          }}
           onTouchEnd={(e) => {
-            const diff = touchX.current - e.changedTouches[0].screenX
-            if (Math.abs(diff) > 50) diff > 0 ? next() : prev()
+            const diff = touchX.current - e.changedTouches[0].screenX;
+            if (Math.abs(diff) > 50) diff > 0 ? next() : prev();
           }}
           role="dialog"
           aria-modal="true"
@@ -149,7 +159,10 @@ export default function Gallery() {
           <button
             aria-label="Anterior"
             className="absolute left-4 top-1/2 -translate-y-1/2 z-20 rounded-full p-2 text-white/50 hover:bg-white/10 hover:text-white transition-colors hidden sm:flex"
-            onClick={(e) => { e.stopPropagation(); prev() }}
+            onClick={(e) => {
+              e.stopPropagation();
+              prev();
+            }}
           >
             <ChevronLeft className="w-8 h-8 sm:w-10 sm:h-10" />
           </button>
@@ -157,7 +170,10 @@ export default function Gallery() {
           <button
             aria-label="Seguinte"
             className="absolute right-4 top-1/2 -translate-y-1/2 z-20 rounded-full p-2 text-white/50 hover:bg-white/10 hover:text-white transition-colors hidden sm:flex"
-            onClick={(e) => { e.stopPropagation(); next() }}
+            onClick={(e) => {
+              e.stopPropagation();
+              next();
+            }}
           >
             <ChevronRight className="w-8 h-8 sm:w-10 sm:h-10" />
           </button>
@@ -167,11 +183,13 @@ export default function Gallery() {
             onClick={(e) => e.stopPropagation()}
           >
             {openItem.type === "image" ? (
-              <img
+              <Image
                 src={imageFull(openItem.name)}
                 alt={openItem.alt}
-                className="max-h-[80vh] w-auto max-w-full object-contain rounded-lg"
-                loading="eager"
+                width={1200}
+                height={1600}
+                className="max-h-[80vh] w-auto max-w-full object-contain"
+                priority
               />
             ) : (
               <video
@@ -179,7 +197,7 @@ export default function Gallery() {
                 controls
                 autoPlay
                 playsInline
-                className="max-h-[80vh] w-full rounded-lg"
+                className="max-h-[80vh] w-full"
               />
             )}
           </div>
@@ -192,5 +210,5 @@ export default function Gallery() {
         </div>
       )}
     </section>
-  )
+  );
 }

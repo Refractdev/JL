@@ -6,7 +6,9 @@ import { whatsappLink } from "@/src/lib/whatsapp";
 export default function FloatingWhatsApp() {
   return (
     <a
-      href={whatsappLink("Olá! Gostaria de mais informações.")}
+      href={whatsappLink(
+        "Olá! Gostaria de uma avaliação gratuita e orçamento personalizado."
+      )}
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Falar no WhatsApp"

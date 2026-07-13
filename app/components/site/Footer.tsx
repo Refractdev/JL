@@ -15,8 +15,8 @@ export default function Footer() {
             Estúdio de Beleza
           </p>
           <p className="text-sm leading-relaxed text-background/70 mb-6">
-            Especialistas em extensões de cabelo e serviços de beleza premium em
-            Vila Real.
+            Extensões de cabelo natural e serviços de beleza em Vila Real.
+            Avaliação gratuita pelo WhatsApp.
           </p>
           <div className="flex gap-4">
             <a

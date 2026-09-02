@@ -1,16 +1,19 @@
 import { MessageCircle } from "lucide-react";
 import { WA_MESSAGES, whatsappLink } from "@/src/lib/whatsapp";
-import { imageSrc } from "@/src/lib/images";
+import { imageSrc, imageWebp, imageWebpSrcset } from "@/src/lib/images";
 import OptimizedImage from "@/app/components/site/OptimizedImage";
 
 interface HeroServiceProps {
   title: string;
   subtitle: string;
   description: string;
-  imageBase: string;
-  imageAlt: string;
+  /** Sem foto real do serviço, o hero cai para a versão tipográfica em creme */
+  imageBase?: string;
+  imageAlt?: string;
   ctaMessage?: string;
   ctaLabel?: string;
+  /** Palavra do título a destacar */
+  accentWord?: string;
 }
 
 export default function HeroService({
@@ -18,54 +21,144 @@ export default function HeroService({
   subtitle,
   description,
   imageBase,
-  imageAlt,
+  imageAlt = "",
   ctaMessage = WA_MESSAGES.generic,
   ctaLabel = "Pedir avaliação no WhatsApp",
+  accentWord,
 }: HeroServiceProps) {
+  const parts = accentWord ? title.split(accentWord) : null;
+
+  const heading =
+    parts && parts.length === 2 ? (
+      <>
+        {parts[0]}
+        <em className="not-italic text-champagne">{accentWord}</em>
+        {parts[1]}
+      </>
+    ) : (
+      title
+    );
+
+  const headingLight =
+    parts && parts.length === 2 ? (
+      <>
+        {parts[0]}
+        <em className="not-italic text-bronze-deep">{accentWord}</em>
+        {parts[1]}
+      </>
+    ) : (
+      title
+    );
+
+  const cta = (
+    <a
+      href={whatsappLink(ctaMessage)}
+      target="_blank"
+      rel="noopener noreferrer"
+      className={imageBase ? "btn btn-cream" : "btn btn-primary"}
+    >
+      <MessageCircle className="h-[1.125rem] w-[1.125rem]" aria-hidden />
+      {ctaLabel}
+    </a>
+  );
+
+  if (!imageBase) {
+    return (
+      <section className="relative overflow-hidden px-3 pt-3 sm:px-5 sm:pt-5">
+        <div className="relative flex min-h-[62svh] flex-col justify-end overflow-hidden rounded-[2rem] bg-blush/60 px-6 pb-16 pt-32 sm:rounded-[3rem] sm:px-12 sm:pb-20 sm:pt-40 md:px-16">
+          <div
+            className="bloom bloom-bronze right-[-8rem] top-[-8rem] h-[32rem] w-[32rem]"
+            aria-hidden
+          />
+          <div
+            className="bloom bloom-blush left-[-10rem] bottom-[-10rem] h-[30rem] w-[30rem]"
+            aria-hidden
+          />
+
+          <div className="relative z-10 max-w-3xl">
+            <span
+              className="eyebrow bg-paper/80 motion-safe:animate-rise-in"
+              style={{ animationDelay: "100ms" }}
+            >
+              {subtitle}
+            </span>
+            <h1
+              className="display mt-7 text-display-lg text-mocha text-balance motion-safe:animate-rise-in"
+              style={{ animationDelay: "200ms" }}
+            >
+              {headingLight}
+            </h1>
+            <p
+              className="lede mt-6 max-w-measure-lg text-pretty motion-safe:animate-rise-in"
+              style={{ animationDelay: "300ms" }}
+            >
+              {description}
+            </p>
+            <div
+              className="mt-9 motion-safe:animate-rise-in"
+              style={{ animationDelay: "400ms" }}
+            >
+              {cta}
+            </div>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
   return (
-    <section className="relative min-h-[52svh] sm:min-h-[55vh] md:min-h-[60vh] flex items-end overflow-hidden">
+    <section className="relative overflow-hidden px-3 pt-3 sm:px-5 sm:pt-5">
       <link
         rel="preload"
         as="image"
-        href={imageSrc(imageBase, 800)}
-        imageSrcSet={`${imageSrc(imageBase, 400)} 400w, ${imageSrc(imageBase, 800)} 800w`}
+        href={imageWebp(imageBase, 1200)}
+        imageSrcSet={imageWebpSrcset(imageBase)}
         imageSizes="100vw"
+        type="image/webp"
       />
-      <OptimizedImage
-        baseName={imageBase}
-        alt={imageAlt}
-        fill
-        priority
-        widthHint={800}
-        sizes="100vw"
-        quality={75}
-        className="absolute inset-0"
-        imgClassName="object-cover object-[center_25%] sm:object-center"
-      />
-      <div
-        className="absolute inset-0 bg-gradient-to-t from-foreground/80 via-foreground/45 to-foreground/25"
-        aria-hidden
-      />
+      <link rel="preload" as="image" href={imageSrc(imageBase, 1200)} />
 
-      <div className="relative z-10 container-tight py-14 sm:py-16 md:py-20 w-full pb-28 md:pb-20">
-        <p className="text-[10px] sm:text-[11px] tracking-[0.28em] uppercase text-primary-foreground/80 mb-3">
-          {subtitle}
-        </p>
-        <h1 className="font-serif text-[1.85rem] sm:text-3xl md:text-5xl text-primary-foreground leading-tight max-w-3xl text-balance mb-3 sm:mb-4">
-          {title}
-        </h1>
-        <p className="text-sm sm:text-base text-primary-foreground/90 max-w-xl leading-relaxed mb-6 sm:mb-8 text-pretty">
-          {description}
-        </p>
-        <a
-          href={whatsappLink(ctaMessage)}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="btn-primary min-h-[48px] bg-primary-foreground text-foreground hover:opacity-95"
-        >
-          <MessageCircle className="w-5 h-5" aria-hidden />
-          {ctaLabel}
-        </a>
+      <div className="relative flex min-h-[70svh] items-end overflow-hidden rounded-[2rem] bg-espresso shadow-deep sm:rounded-[3rem]">
+        <OptimizedImage
+          baseName={imageBase}
+          alt={imageAlt}
+          fill
+          priority
+          widthHint={1200}
+          sizes="100vw"
+          className="absolute inset-0 !rounded-none"
+          imgClassName="object-[center_22%] sm:object-center"
+        />
+        <div className="scrim-soft absolute inset-0" aria-hidden />
+
+        <div className="relative z-10 w-full px-6 pb-14 pt-32 sm:px-10 sm:pb-16 md:px-16 md:pb-20">
+          <div className="max-w-3xl">
+            <span
+              className="eyebrow motion-safe:animate-rise-in"
+              style={{ animationDelay: "100ms" }}
+            >
+              {subtitle}
+            </span>
+            <h1
+              className="display mt-7 text-display-lg text-cream text-balance motion-safe:animate-rise-in"
+              style={{ animationDelay: "200ms" }}
+            >
+              {heading}
+            </h1>
+            <p
+              className="mt-6 max-w-measure-lg text-base leading-relaxed text-cream/80 text-pretty motion-safe:animate-rise-in"
+              style={{ animationDelay: "300ms" }}
+            >
+              {description}
+            </p>
+            <div
+              className="mt-9 motion-safe:animate-rise-in"
+              style={{ animationDelay: "400ms" }}
+            >
+              {cta}
+            </div>
+          </div>
+        </div>
       </div>
     </section>
   );

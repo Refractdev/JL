@@ -1,17 +1,20 @@
 import type { Metadata, Viewport } from "next";
-import { Cormorant_Garamond, DM_Sans } from "next/font/google";
+import { Cormorant_Garamond, Manrope } from "next/font/google";
 import "./globals.css";
 import { pageSeo } from "@/src/lib/seo";
+import RevealOnScroll from "@/app/components/site/RevealOnScroll";
 
-const dmSans = DM_Sans({
+const manrope = Manrope({
   subsets: ["latin"],
-  variable: "--font-dm-sans",
+  weight: ["300", "400", "500", "600"],
+  variable: "--font-manrope",
   display: "swap",
 });
 
 const cormorant = Cormorant_Garamond({
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
+  weight: ["300", "400", "500", "600"],
+  style: ["normal", "italic"],
   variable: "--font-cormorant",
   display: "swap",
 });
@@ -22,7 +25,7 @@ export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   viewportFit: "cover",
-  themeColor: "#f7f4f0",
+  themeColor: "#fdf8f2",
 };
 
 export const metadata: Metadata = {
@@ -68,9 +71,18 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="pt" className={`${dmSans.variable} ${cormorant.variable}`}>
-      <body className="min-h-screen bg-background font-sans antialiased pb-mobile-cta">
+    <html lang="pt" className={`${manrope.variable} ${cormorant.variable}`}>
+      <head>
+        {/* Ativa as revelações só quando há JS — sem JS o conteúdo fica visível */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `document.documentElement.classList.add("js")`,
+          }}
+        />
+      </head>
+      <body className="min-h-screen bg-background font-sans font-light antialiased pb-mobile-cta">
         {children}
+        <RevealOnScroll />
       </body>
     </html>
   );

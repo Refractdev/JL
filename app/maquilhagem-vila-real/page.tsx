@@ -2,15 +2,15 @@ import type { Metadata } from "next";
 import SkipLink from "@/app/components/site/SkipLink";
 import Header from "@/app/components/site/Header";
 import HeroService from "@/app/components/site/HeroService";
+import ServiceIntro from "@/app/components/site/ServiceIntro";
+import ServiceCta from "@/app/components/site/ServiceCta";
 import Faq from "@/app/components/site/Faq";
 import Footer from "@/app/components/site/Footer";
 import FloatingWhatsApp from "@/app/components/site/FloatingWhatsApp";
 import ScrollToTop from "@/app/components/site/ScrollToTop";
 import JsonLd from "@/app/components/site/JsonLd";
-import OptimizedImage from "@/app/components/site/OptimizedImage";
 import { getPageSeo } from "@/src/lib/seo";
-import { WA_MESSAGES, whatsappLink } from "@/src/lib/whatsapp";
-import { MessageCircle } from "lucide-react";
+import { WA_MESSAGES } from "@/src/lib/whatsapp";
 
 const seo = getPageSeo("/maquilhagem-vila-real");
 
@@ -27,85 +27,99 @@ export const metadata: Metadata = {
   },
 };
 
+const includes = [
+  "Maquilhagem para noivas e convidadas",
+  "Eventos e ocasiões especiais",
+  "Sessões fotográficas",
+  "Prova quando fizer sentido para o teu evento",
+];
+
+const occasions = [
+  {
+    title: "Noivas",
+    text: "Look pensado para durar o dia inteiro e para se comportar bem em fotografia.",
+  },
+  {
+    title: "Convidadas e eventos",
+    text: "Do discreto ao marcado — alinhamos o resultado com o que a ocasião pede.",
+  },
+  {
+    title: "Sessões fotográficas",
+    text: "Acabamento pensado para luz forte e para o enquadramento da câmara.",
+  },
+];
+
 export default function MaquilhagemPage() {
   return (
     <>
       <JsonLd seo={seo} />
       <SkipLink />
-      <Header />
+      <Header alwaysSolid />
       <main id="main-content">
+        {/* Sem fotografias reais de maquilhagem no arquivo — hero tipográfico */}
         <HeroService
           title="Maquilhagem em Vila Real"
+          accentWord="Maquilhagem"
           subtitle="Casamentos · Eventos · Sessões"
           description="Look pensado para a ocasião e para ti. Orçamento personalizado pelo WhatsApp."
-          imageBase="gallery-makeup-01"
-          imageAlt="Maquilhagem profissional para eventos em Vila Real"
           ctaMessage={WA_MESSAGES.maquilhagem}
           ctaLabel="Marcar maquilhagem"
         />
 
-        <section className="section-padding">
-          <div className="container-tight grid gap-12 lg:grid-cols-2 items-center">
-            <div>
-              <h2 className="font-serif text-3xl md:text-4xl text-foreground leading-tight">
-                Para o teu dia
-              </h2>
-              <p className="mt-4 text-muted-foreground leading-relaxed">
-                Seja casamento, festa ou sessão fotográfica, alinhamos o look
-                com o teu estilo e com o que a ocasião pede.
-              </p>
-              <ul className="mt-8 space-y-4">
-                {[
-                  "Maquilhagem para noivas e convidadas",
-                  "Eventos e ocasiões especiais",
-                  "Sessões fotográficas",
-                  "Prova quando fizer sentido para o teu evento",
-                ].map((item) => (
-                  <li key={item} className="flex items-start gap-3">
-                    <span
-                      className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-primary"
-                      aria-hidden
-                    />
-                    <span>{item}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <div className="relative aspect-[4/3] overflow-hidden bg-muted">
-              <OptimizedImage
-                baseName="gallery-makeup-01"
-                alt="Detalhe de maquilhagem no estúdio JL e Extensões"
-                fill
-                sizes="(max-width: 1024px) 100vw, 50vw"
-                className="absolute inset-0"
-                imgClassName="object-cover"
+        <ServiceIntro
+          eyebrow="Para o teu dia"
+          title="O look acompanha a ocasião"
+          accentWord="ocasião"
+          description="Seja casamento, festa ou sessão fotográfica, alinhamos o look com o teu estilo e com o que o dia pede."
+          items={includes}
+        />
+
+        <section className="section relative">
+          <div className="shell">
+            <div className="relative overflow-hidden rounded-[2rem] bg-blush/45 px-6 py-16 sm:rounded-[3rem] sm:px-10 md:px-16 md:py-20">
+              <div
+                className="bloom bloom-bronze left-[-8rem] bottom-[-8rem] h-[28rem] w-[28rem]"
+                aria-hidden
               />
+              <div className="relative z-10">
+                <div className="mx-auto max-w-2xl text-center" data-reveal>
+                  <span className="eyebrow">Ocasiões</span>
+                  <h2 className="display mt-6 text-display-md text-balance">
+                    Onde <em className="not-italic text-bronze-deep">entramos</em>
+                  </h2>
+                </div>
+                <ul className="mt-12 grid gap-4 md:grid-cols-3">
+                  {occasions.map((item, i) => (
+                    <li
+                      key={item.title}
+                      className="card-soft p-7"
+                      data-reveal
+                      style={{ ["--reveal-delay" as string]: `${i * 120}ms` }}
+                    >
+                      <span className="flex h-10 w-10 items-center justify-center rounded-full bg-blush font-serif text-lg text-bronze-deep">
+                        {i + 1}
+                      </span>
+                      <h3 className="mt-5 font-serif text-2xl text-mocha">
+                        {item.title}
+                      </h3>
+                      <p className="mt-2 text-sm leading-relaxed text-cocoa text-pretty">
+                        {item.text}
+                      </p>
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </div>
           </div>
         </section>
 
         {seo.faqs && <Faq items={seo.faqs} />}
 
-        <section className="section-padding bg-muted/50">
-          <div className="container-tight text-center max-w-2xl mx-auto">
-            <h2 className="font-serif text-3xl text-foreground mb-4">
-              Marca a tua maquilhagem
-            </h2>
-            <p className="text-muted-foreground mb-8">
-              Conta-nos a data e a ocasião — respondemos com disponibilidade e
-              orçamento.
-            </p>
-            <a
-              href={whatsappLink(WA_MESSAGES.maquilhagem)}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn-primary"
-            >
-              <MessageCircle className="w-5 h-5" aria-hidden />
-              Falar no WhatsApp
-            </a>
-          </div>
-        </section>
+        <ServiceCta
+          title="Marca a tua maquilhagem"
+          description="Conta-nos a data e a ocasião — respondemos com disponibilidade e orçamento."
+          message={WA_MESSAGES.maquilhagem}
+        />
       </main>
       <Footer />
       <FloatingWhatsApp />

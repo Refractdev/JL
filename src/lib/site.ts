@@ -52,13 +52,17 @@ export const services = [
   "Outro",
 ] as const;
 
+/**
+ * Os cartões secundários não levam fotografia: o arquivo do estúdio só tem
+ * fotos de cabelo, e ilustrar maquilhagem/unhas/cílios com fotos de cabelo
+ * seria falso. Assinam-se com ícone e cor até haver fotos reais de cada serviço.
+ */
 export type ServiceCard = {
   title: string;
   benefit: string;
   pricingNote: string;
   ctaLabel: string;
-  image: string;
-  imageAlt: string;
+  icon: "sparkles" | "gem" | "scissors" | "eye" | "leaf";
   message?: string;
   link?: string;
 };
@@ -77,49 +81,44 @@ export const featuredService = {
 
 export const serviceCards: ServiceCard[] = [
   {
+    title: "Cabeleireiro",
+    benefit: "Cortes, cor e tratamentos pensados para o teu cabelo.",
+    pricingNote: "Orçamento pelo WhatsApp",
+    ctaLabel: "Marcar cabeleireiro",
+    icon: "scissors",
+    message: WA_MESSAGES.cabeleireiro,
+  },
+  {
     title: "Maquilhagem",
     benefit: "Para casamentos, eventos e ocasiões especiais.",
-    pricingNote: "Orçamento personalizado pelo WhatsApp",
-    ctaLabel: "Marcar maquilhagem",
+    pricingNote: "Orçamento pelo WhatsApp",
+    ctaLabel: "Ver maquilhagem",
+    icon: "sparkles",
     link: "/maquilhagem-vila-real",
-    image: "gallery-makeup-01",
-    imageAlt: "Maquilhagem profissional para eventos em Vila Real",
   },
   {
     title: "Unhas",
     benefit: "Gel e manicure com acabamento limpo e duradouro.",
-    pricingNote: "Orçamento personalizado pelo WhatsApp",
-    ctaLabel: "Marcar unhas",
+    pricingNote: "Orçamento pelo WhatsApp",
+    ctaLabel: "Ver unhas",
+    icon: "gem",
     link: "/unhas-vila-real",
-    image: "materials-02",
-    imageAlt: "Unhas de gel e manicure na JL e Extensões",
-  },
-  {
-    title: "Cabeleireiro",
-    benefit: "Cortes, cor e tratamentos pensados para o teu cabelo.",
-    pricingNote: "Orçamento personalizado pelo WhatsApp",
-    ctaLabel: "Marcar cabeleireiro",
-    message: WA_MESSAGES.cabeleireiro,
-    image: "hair-05",
-    imageAlt: "Serviço de cabeleireiro em Vila Real",
   },
   {
     title: "Cílios",
     benefit: "Volume e definição com aplicação cuidada.",
-    pricingNote: "Orçamento personalizado pelo WhatsApp",
+    pricingNote: "Orçamento pelo WhatsApp",
     ctaLabel: "Marcar cílios",
+    icon: "eye",
     message: WA_MESSAGES.cilios,
-    image: "hair-06",
-    imageAlt: "Extensões de cílios na JL e Extensões",
   },
   {
     title: "Depilação",
     benefit: "Depilação suave e com resultado limpo.",
-    pricingNote: "Orçamento personalizado pelo WhatsApp",
+    pricingNote: "Orçamento pelo WhatsApp",
     ctaLabel: "Marcar depilação",
+    icon: "leaf",
     message: WA_MESSAGES.depilacao,
-    image: "hair-07",
-    imageAlt: "Serviço de depilação em Vila Real",
   },
 ];
 
@@ -148,25 +147,6 @@ export const homeFaqs = [
     question: "Como funciona a primeira marcação?",
     answer:
       "Envias uma mensagem no WhatsApp → fazemos a avaliação → definimos o plano e o orçamento → marcamos a aplicação. É simples e sem pressão.",
-  },
-] as const;
-
-export const socialProofPhotos = [
-  {
-    image: "hair-01",
-    alt: "Transformação com extensões de cabelo — resultado natural",
-  },
-  {
-    image: "hair-02",
-    alt: "Cliente com extensões de cabelo na JL e Extensões",
-  },
-  {
-    image: "gallery-blonde-01",
-    alt: "Extensões loiras com acabamento natural em Vila Real",
-  },
-  {
-    image: "updo-01",
-    alt: "Penteado com extensões para ocasião especial",
   },
 ] as const;
 

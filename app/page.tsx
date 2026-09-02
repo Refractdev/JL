@@ -1,10 +1,11 @@
 import SkipLink from "@/app/components/site/SkipLink";
 import Header from "@/app/components/site/Header";
 import Hero from "@/app/components/site/Hero";
-import SocialProof from "@/app/components/site/SocialProof";
+import Manifesto from "@/app/components/site/Manifesto";
 import Expertise from "@/app/components/site/Expertise";
-import Services from "@/app/components/site/Services";
 import BeforeAfter from "@/app/components/site/BeforeAfter";
+import Gallery from "@/app/components/site/Gallery";
+import Services from "@/app/components/site/Services";
 import AboutJoice from "@/app/components/site/AboutJoice";
 import Faq from "@/app/components/site/Faq";
 import Contact from "@/app/components/site/Contact";
@@ -23,10 +24,11 @@ export default function HomePage() {
       <Header />
       <main id="main-content">
         <Hero />
-        <SocialProof />
+        <Manifesto />
         <Expertise />
-        <Services />
         <BeforeAfter />
+        <Gallery />
+        <Services />
         <AboutJoice />
         <Faq items={homeFaqs} />
         <Contact />
